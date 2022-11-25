@@ -1,0 +1,88 @@
+<%- include('headerlink-layout.ejs') %>
+<%- include('header-layout.ejs') %>
+
+	<!-- Start Banner Area -->
+	<section class="banner-area organic-breadcrumb">
+		<div class="container">
+			<div class="breadcrumb-banner d-flex flex-wrap align-items-center justify-content-end">
+				<div class="col-first">
+					<h1>Wishlist</h1>
+					<nav class="d-flex align-items-center">
+						<a href="/">Home<span class="lnr lnr-arrow-right"></span></a>
+						<a href="category.html">Wishlist</a>
+					</nav>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!-- End Banner Area -->
+
+	<!--================Cart Area =================-->
+	<section class="cart_area">
+		<div class="container">
+			<div class="cart_inner">
+				<% if(list.length == 0){ %>
+					
+					<div class="col-12 text-center">
+						<img src="https://www.our-eshop.com/frontend/assets/images/no-wish-list.png" alt="">
+					</div>
+					<% }else{ %> 
+				<div class="table-responsive">
+					<table class="table">
+						<thead>
+							<tr>
+								<th scope="col"></th>
+								<th scope="col">Product</th>
+								<th scope="col">Name</th>
+								<th scope="col">Price</th>	
+								<th scope="col"></th>
+							</tr>
+						</thead>
+						<% list.forEach(function(x){ %> 	 
+						<tbody>
+							 <tr>
+								<td><a class="primary-btn" href="/removeWishlistProduct/<%= x._id%> ">Remove</a></td>
+								<td>
+									<div class="media">
+										<div class="d-flex">
+											<img src="/admin/evoimg/<%= x.image %>" alt="" style ="height: 75px; width: 75px ;">
+										</div>
+
+									</div>
+								</td>
+								<td>
+									<h5><%= x.name %> </h5>
+								</td>
+								<td>
+									<h5><%= x.price  %> </h5>
+								</td>
+
+								<td>
+									<h5></h5>
+								</td>
+								<td><a class="primary-btn" href="/addToCart/<%=x._id%> ">Ad to Cart</a></td>
+								
+							</tr>
+							<% }) %> 
+							
+							<!-- <tr class="out_button_area">
+								<tr class="bottom_button">
+							      </tr>
+						
+								  <td>
+									<div class="checkout_btn_inner d-flex align-items-center">
+										<a class="primary-btn" href="#">Continue Shopping</a>
+									</div>
+								</td>
+							</tr> -->
+
+						</tbody>
+					</table>
+				</div>
+				<% } %> 
+			</div>
+		</div>
+	</section>
+	<!--================End Cart Area =================-->
+
+	<%- include('footer-layout.ejs') %>

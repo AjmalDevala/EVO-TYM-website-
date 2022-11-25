@@ -1,0 +1,127 @@
+<%- include('headerlink-layout.ejs') %>
+<%- include('header-layout.ejs') %>
+
+  <div class="container-fluid py-5 " style="margin-top: 140px;">
+    <div class="row d-flex justify-content-center">
+      <div class="col-md-6">
+        <div class="card mb-4">
+          <div class="pb-0 p-3">
+            <h6 class="mb-1">ADD Address</h6>
+          </div>
+          <div class="row">
+            <form action="/newAddress" method="post">
+              <div class="col-md-12">
+                <div class="card shadow mb-4">
+                  <div class="card-body">
+                      <div class="form-row">
+                        <div class="col-md-6 mb-3">
+                          <label for="validationCustom3">Full name</label>
+                          <input type="text" name="fullName" class="form-control" id="validationCustom3" value=""
+                            required />
+                        </div>
+                      </div>
+                      <div class="form-group mb-3">
+                        <label for="address-wpalaceholder">Address</label>
+                        <input type="text" id="address-wpalaceholder" name="address" class="form-control"
+                          value="" />
+                      </div>
+                      <div class="form-group mb-3">
+                        <label for="address-wpalaceholder">Phone Number</label>
+                        <input type="number" id="address-wpalaceholder" name="phone" class="form-control"
+                          value="" />
+                      </div>
+                      <div class="form-row">
+                        <div class="col-md-6 mb-3">
+                          <label for="validationCustom33">City</label>
+                          <input type="text" name="city" class="form-control" id="validationCustom33" value=""
+                            required />
+                        </div>
+                        <div class="col-md-3 mb-3">
+                          <label for="validationSelect2">State</label>
+                          <input class="form-control" name="state" id="custom-zip" autocomplete="off" maxlength="9"
+                            value="" required />
+                        </div>
+                        <div class="col-md-3 mb-3">
+                          <label for="custom-zip">pin code</label>
+                          <input class="form-control input-zip" name="pincode" id="custom-zip" autocomplete="off"
+                            maxlength="9" value="" required />
+                        </div>
+                      </div>
+
+                      <button class="btn  primary-btn" type="submit">
+                        Submit form
+                      </button>
+                    </div>
+                    <!-- /.card-body -->
+                  </div>
+                  <!-- /.card -->
+                </div>
+                <!-- /.col -->
+              </form>
+              <div>
+                <a href="/profilePage"><button class="btn btn-success">BACK TO PROFILE</button></a>
+              </div>
+              <hr>
+            <% if(allAddress.length == 0){ %>
+              <div class="col-12 text-center">
+                
+                <img src="https://cdn-icons-png.flaticon.com/128/1076/1076731.png" alt="">
+              </div>
+              <% }else{ %>
+              <div class="row gutters-sm">
+              <% allAddress.forEach(function(x) { %> 
+              <div class="col-sm-6 mb-3">
+                  <div class="card h-100">
+                      <div class="card-body">
+                          <h6 class="d-flex align-items-center mb-3">
+
+                              <i class="material-icons text-info mr-2"> Saved Address</i>
+                          </h6>
+                          <a class="btn btn-info" href="/deleteaddress/<%= x._id %> ">delete</a>
+                          <ul class="list-group list-group-flush">
+                              <li
+                                  class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+                                  <h6 class="mb-0">address full name</h6>
+                                  <span class="text-secondary"><%= x.fullName%> </span>
+                              </li>
+                              <li
+                                  class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+                                  <h6 class="mb-0">address house name</h6>
+                                  <span class="text-secondary"><%= x.address%></span>
+                              </li>
+
+                              <li
+                                  class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+                                  <h6 class="mb-0">address city</h6>
+                                  <span class="text-secondary"><%= x.city%></span>
+                              </li>
+                              <li
+                                  class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+                                  <h6 class="mb-0">address state</h6>
+                                  <span class="text-secondary"><%= x.state%></span>
+                              </li>
+                              <li
+                                  class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+                                  <h6 class="mb-0">address pincode</h6>
+                                  <span class="text-secondary"><%= x.pincode%></span>
+                              </li>
+                              <li
+                                  class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+                                  <h6 class="mb-0">address phone</h6>
+                                  <span class="text-secondary"><%= x.phone%></span>
+                              </li>
+                          </ul>
+                      </div>
+             
+                  </div>
+              </div>
+              <% }) %> 
+          </div> 
+          <% } %> 
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <%- include('footer-layout.ejs') %>

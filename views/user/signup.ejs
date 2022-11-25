@@ -1,0 +1,104 @@
+<%- include('headerlink-layout.ejs') %>
+  
+  </script>
+
+
+  <!-- Start Banner Area -->
+  <section class="banner-area organic-breadcrumb">
+    <div class="container">
+      <div class="breadcrumb-banner d-flex flex-wrap align-items-center justify-content-end">
+        <div class="col-first">
+          <h1>WELCOME</h1>
+          <h2>REGISTER HERE</h2>
+          <nav class="d-flex align-items-center">
+            <a href="/">Home<span class="lnr lnr-arrow-right"></span></a>
+            <a href="/login_page">Register</a>
+          </nav>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- End Banner Area -->
+
+  <!-- Section: Design Block -->
+  <section class="text-center text-lg-start">
+    <style>
+      .cascading-right {
+        margin-right: -50px;
+      }
+
+      @media (max-width: 991.98px) {
+        .cascading-right {
+          margin-right: 0;
+        }
+      }
+    </style>
+
+    <!-- Jumbotron -->
+
+    <div class="container py-4">
+      <div class="row g-0 align-items-center">
+        <div class="col-lg-6 mb-5 mb-lg-0">
+          <div class="card cascading-right" style="
+              background: hsla(0, 0%, 100%, 0.55);
+              backdrop-filter: blur(30px);
+              ">
+            <div class="card-body p-5 shadow-5 text-center">
+              <h2 class="fw-bold mb-5">Sign up now</h2>
+
+              <!-- form -->
+
+              <form name="form 1" action="/otp" method="post" >
+                <!-- 2 column grid layout with text inputs for the first and last names -->
+                <div class="form-outline mb-4">
+                  <input type="text" id="form3Example3" class="form-control" name="name" required  pattern="[A-Za-z]{3,22}"/>
+                  <label class="form-label"    for="form3Example3">Name</label>
+                </div>
+                
+                <!-- Email input -->
+                <div class="form-outline mb-4">
+                  <input type="text" id="text" class="form-control" name="email" required pattern="[a-z0-9._%+-]+@[a-z.-]+\.[a-z]{2,4}$"/>
+                  <label class="form-label" for="form3Example3">Email address</label>
+                </div>
+                
+
+                <!-- phonenumber input -->
+                <div class="form-outline mb-4">
+                  <input type="text" id="form3Example3" class="form-control" name="phone"  required pattern="[6789][0-9]{9}" />
+                  <label class="form-label" placeholder="Mobile Number" for="form3Example3">Phone number</label> 
+                </div>
+
+                <!-- Password input -->
+                <div class="form-outline mb-4">
+                  <input type="password"  required pattern=".{8,20}" id="form3Example4" class="form-control" name="password" />
+                  <label class="form-label" for="form3Example4">Password</label>
+                  <span >  Must be 8-20 characters long </span>
+                </div>
+                
+
+                  <!-- Submit button -->
+                <button type="submit" id="sweet"  class="btn btn-warning btn-block mb-4" > Sign up</button>
+
+                <!-- Register buttons -->
+              </form>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6 mb-5 mb-lg-0">
+          <img src="https://i.pinimg.com/originals/2b/e9/1e/2be91e2bb33dd1792b52398a1579e2b1.gif"
+            class="w-100 rounded-4 shadow-4" alt="" />
+        </div>
+      </div>
+    </div>
+
+    <script>
+      document.getElementById('sweet').addEventListener('click',function(){
+          Swal.fire('wait for a OTP' );
+        })
+        
+      
+    </script>
+    <!-- Jumbotron -->
+  </section>
+  <!-- Section: Design Block -->
+  <%- include('footer-layout.ejs') %>

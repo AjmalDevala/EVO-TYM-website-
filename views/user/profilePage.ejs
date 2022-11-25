@@ -1,0 +1,167 @@
+<%- include('headerlink-layout.ejs') %> <%- include('header-layout.ejs') %>
+
+<div class="container" style="margin-top: 180px">
+  <div class="main-body">
+    <!-- Breadcrumb -->
+
+    <!-- /Breadcrumb -->
+
+    <div class="row gutters-sm">
+      <div class="col-md-4 mb-3">
+        <div class="card">
+          <div class="card-body">
+            <div class="d-flex flex-column align-items-center text-center">
+              <img
+                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR5yTxBxqX7UPLILheEuZbgOuYver2PQLQxuQ&usqp=CAU"
+                alt="Admin"
+                class="rounded-circle"
+                width="150"
+              />
+              <div class="mt-3">
+                <h4><%= user.name %></h4>
+                <p class="text-secondary mb-1"><%= user.email %></p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card mt-3">
+          <ul class="list-group list-group-flush">
+            <li
+              class="list-group-item d-flex justify-content-between align-items-center flex-wrap" >
+              <i class="bi bi-cart-check-fill"></i><a href="#">
+                <h6 class="mb-0">Orders</h6></a>
+              <span class="text-secondary">@arctic</span>
+            </li>
+            <li
+            class="list-group-item d-flex justify-content-between align-items-center flex-wrap" >
+            <i class="bi bi-cart-check-fill"></i><a href="/addressPage">
+              <h6 class="mb-0">Saved Address</h6></a>
+            <span class="text-secondary">@arctic</span>
+          </li>
+          <li
+          class="list-group-item d-flex justify-content-between align-items-center flex-wrap" >
+          <i class="bi bi-cart-check-fill"></i><a href="/orderDetails">
+            <h6 class="mb-0">user data</h6></a>
+          <span class="text-secondary">@arctic</span>
+        </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="col-md-8">
+        <div class="card mb-3">
+          <div class="card-body">
+            <div class="row">
+              <div class="col-sm-3">
+                <h6 class="mb-0">Full Name</h6>
+              </div>
+              <div class="col-sm-9 text-secondary"><%= user.name %></div>
+            </div>
+            <hr />
+            <div class="row">
+              <div class="col-sm-3">
+                <h6 class="mb-0">Email</h6>
+              </div>
+              <div class="col-sm-9 text-secondary"><%= user.email %></div>
+            </div>
+            <hr />
+            <div class="row">
+              <div class="col-sm-3">
+                <h6 class="mb-0">Phone</h6>
+              </div>
+              <div class="col-sm-9 text-secondary"><%= user.phone %></div>
+            </div>
+            <hr />
+            <div class="row mt-5">
+              <div class="col-sm-6 text-end mt-5">
+                <a class="btn btn-success" href="/addressPage">Add address</a></div>
+                <div class="col-sm-6 mt-5">
+                  <p>
+                    <a class="btn btn-info" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+                     EditProfile
+                    </a>
+                  </p>
+                </div>
+                <div class="collapse" id="collapseExample">
+                  <div class="card card-body">
+                    <form action="/editProfile/<%= user._id %>" method="post">
+                      <div class="form-group">
+                          <label for="exampleInputEmail1">Name</label>
+                          <input type="text" class="form-control" name="name" value="<%= user.name %>">
+                      </div>
+                      <div class="form-group">
+                          <label for="exampleInputEmail1">Email address</label>
+                          <input type="email" name="email" class="form-control" id="exampleInputEmail1"
+                              aria-describedby="emailHelp" value="<%= user.email %>">
+                      </div>
+                      <div class="form-group">
+                          <label for="exampleInputEmail1">phone number</label>
+                          <input type="phone" name="phone" class="form-control" id="exampleInputEmail1"
+                              aria-describedby="emailHelp" value="<%= user.phone %>">
+                      </div>
+                      <button type="submit" class="btn btn-info">Submit</button>
+                  </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      
+
+        <div class="row gutters-sm">
+          <div class="col-sm-12 mb-3">
+            <div class="card h-100">
+              <div class="card-body">
+                <h6 class="d-flex align-items-center mb-3">
+                  <i class="material-icons text-info mr-2">Current Address</i>1
+                </h6>
+                <ul class="list-group list-group-flush">
+                  <li
+                    class="list-group-item d-flex justify-content-between align-items-center flex-wrap"
+                  >
+                    <h6 class="mb-0">address full name</h6>
+                    <span class="text-secondary"><%= add.fullName %>  </span>
+                  </li>
+                  <li
+                    class="list-group-item d-flex justify-content-between align-items-center flex-wrap"
+                  >
+                    <h6 class="mb-0">address house name</h6>
+                    <span class="text-secondary"><%= add.address  %> </span>
+                  </li>
+
+                  <li
+                    class="list-group-item d-flex justify-content-between align-items-center flex-wrap"
+                  >
+                    <h6 class="mb-0">address city</h6>
+                    <span class="text-secondary"><%= add.city  %> </span>
+                  </li>
+                  <li
+                    class="list-group-item d-flex justify-content-between align-items-center flex-wrap"
+                  >
+                    <h6 class="mb-0">address state</h6>
+                    <span class="text-secondary"><%= add.state  %> </span>
+                  </li>
+                  <li
+                    class="list-group-item d-flex justify-content-between align-items-center flex-wrap"
+                  >
+                    <h6 class="mb-0">address pincode</h6>
+                    <span class="text-secondary"><%= add.pincode  %> </span>
+                  </li>
+                  <li
+                    class="list-group-item d-flex justify-content-between align-items-center flex-wrap"
+                  >
+                    <h6 class="mb-0">address phone</h6>
+                    <span class="text-secondary"><%= add.phone  %> </span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%- include('footer-layout.ejs') %>

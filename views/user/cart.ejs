@@ -1,0 +1,186 @@
+<%- include('headerlink-layout.ejs') %>
+<%- include('header-layout.ejs') %>
+
+
+<!-- Start Banner Area -->
+<section class="banner-area organic-breadcrumb">
+  <div class="container">
+    <div
+      class="breadcrumb-banner d-flex flex-wrap align-items-center justify-content-end"
+    >
+      <div class="col-first">
+        <h1>Shopping Cart</h1>
+        <nav class="d-flex align-items-center">
+          <a href="index.html">Home<span class="lnr lnr-arrow-right"></span></a>
+          <a href="category.html">Cart</a>
+        </nav>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- End Banner Area -->
+
+<!--================Cart Area =================-->
+<section class="cart_area">
+  <div class="container">
+    <div class="cart_inner">
+      <% if(cart.length == 0){ %>
+					
+        <div class="col-12 text-center">
+          <img src="https://cdni.iconscout.com/illustration/premium/thumb/confusing-woman-due-to-empty-cart-4558760-3780056.png" alt="">
+        </div>
+        <% }else{ %> 
+      <div class="table-responsive">
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col"></th>
+              <th scope="col">Product</th>
+              <th scope="col">Price</th>
+              <th scope="col">Quantity</th>
+              <th scope="col">Total</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% cart.forEach(function(x){ %>
+            <tr>
+              <td>
+                <a
+                  class="primary-btn"
+                  href="/removeCart/<%= x.productId._id %>/<%= x.productId.price %>/<%= x.quantity %> "
+                  >Remove</a
+                >
+              </td>
+              <td>
+                <div class="media">
+                  <div class="d-flex">
+                    <img
+                      src="/admin/evoimg/<%= x.productId.image %>"
+                      alt=""
+                      style="height: 75px; width: 75px"
+                    />
+                  </div>
+                  <div class="media-body">
+                    <p><%= x.productId.name %></p>
+                  </div>
+                </div>
+              </td>
+              <td>
+                <h5>₹<%= x.productId.price %></h5>
+              </td>
+
+
+             
+
+
+                  <td>
+                    <div class="product_count">
+                        
+                      
+                      <form action="/incQuantity/<%= x._id %>/<%=x.productId.price %>" method="post">
+
+                        <button id="sst1"
+                            class="increase items-count" type="submit"><i class="lnr lnr-chevron-up"></i></button>
+
+                        </form>
+
+                        <input type="text" name="qty" id="sst2" maxlength="12" value="<%= x.quantity %> " title="Quantity:"
+                            class="input-text qty">
+
+                      <form action="/decQuantity/<%= x._id%>/<%= x.productId.price %> " method="post">
+
+                        <button id="sst"
+                            class="reduced items-count" type="submit"><i class="lnr lnr-chevron-down"></i></button>
+                            
+                      </form>
+                    </div>
+                </td>
+
+                <script>
+                  let quantity = document.getElementById('sst2').value
+                  if(quantity == 1) {
+                    document.getElementById('sst').disabled = true
+                  }
+                  else {
+                    document.getElementById('sst').disabled = false
+                  }
+
+                  let am=document.getElementById('sst2').value
+                  if(am==5){
+                    document.getElementById('sst1').disabled=true
+                  }else{
+                    document.getElementById('sst1').disabled=false
+                  }
+
+                </script>
+
+              <td>
+                <h5 id="total">₹<%= x.total %></h5>
+              </td>
+            </tr>
+            <% }) %>
+            <tr class="bottom_button"></tr>
+            <tr>
+              <td></td>
+              <td></td>
+              <td>
+                <h5>CartTotal</h5>
+              </td>
+              <td class="d-flex justify-content-end">
+                <h5 id="subtotal">₹<%= cartlist.cartTotal %></h5>
+              </td>
+            </tr>
+
+            <tr class="out_button_area">
+              <td></td>
+              <td></td>
+              <td></td>
+              <td>
+                <div class="checkout_btn_inner d-flex align-items-center">
+                  <a class="gray_btn" href="/showCategory">Continue Shopping</a>
+                  <a class="primary-btn" href="/checkOutPage">Proceed to checkout</a>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <% } %> 
+    </div>
+  </div>
+</section>
+
+
+
+<script>
+  function changeQuantity(productId, price, count) {
+    let quantity = parseInt(document.getElementById(productId).innerHTML);
+    count = parseInt(count);
+    $.ajax({
+      url: "/change-quantity",
+      data: {
+        product: productId,
+        count: count,
+        quantity: quantity,
+      },
+      method: "post",
+      success: (response) => {
+        if (response.status == true) {
+          console.log("cart updated");
+          document.getElementById(productId).innerHTML = quantity + count; //quantity
+          j = quantity + count;
+          document.getElementById("total" + productId).innerHTML =
+            "Rs." + j * price; //price total
+          if (j <= 1) {
+            document.getElementById("disable" + productId).disabled = true;
+          } else {
+            document.getElementById("disable" + productId).disabled = false;
+          }
+          document.getElementById("subtotal").innerHTML = response.sumTotal;
+        }
+      },
+    });
+  }
+</script>
+<!--================End Cart Area =================-->
+<%- include('footer-layout.ejs') %>

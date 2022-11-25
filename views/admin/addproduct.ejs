@@ -1,0 +1,54 @@
+<%- include ('adminHeader-layout.ejs')%>
+
+<div class="col-lg-9 grid-margin stretch-card">
+  <div class="card">
+    <div class="card-body">
+      <h4 class="card-title">ADD NEW PRODUCT</h4>
+    <form class="forms-sample" action="/admin/newProduct" method="post" enctype="multipart/form-data">
+      <div class="form-group">
+        <label for="exampleSelectGender">Choose Category</label>
+        
+        <select class="form-control" id="exampleSelectGender" name="category" >
+
+          <% category.forEach (function (pro) { %>
+            <% if(pro.status=="active"){ %>
+          <option value="<%= pro._id %>"><%= pro.category %> </option>
+          <% } %>  
+        <% }) %> 
+        </select>
+      </div>
+        <div class="form-group">
+          <label for="exampleInputName1">Product Name</label>
+          <input type="text" class="form-control" id="exampleInputName1" name="name" placeholder="Product name"  required >
+        </div>
+        
+        
+        <div class="form-group">
+          <label for="exampleInputName1">price</label>
+          <input type="number" class="form-control" id="exampleInputName1" name="price" placeholder="Original Price" required pattern ="[0-9]">
+        </div>
+
+        <div class="form-group">
+          <label for="exampleInputName1"> brand</label>
+          <input type="text" class="form-control" id="exampleInputName1" name="brand" placeholder=" brand" required >
+        </div>
+
+        <div class="form-group">
+          <label for="exampleTextarea1">Description</label>
+          <textarea class="form-control" placeholder="About product"  name="description" required id="exampleTextarea1" rows="4"></textarea>
+        </div>  
+
+       
+        <div class="form-group">
+          <label for="name"class="text-light">Image</label>
+          
+          <input type="file" accept="image/png,image/jpeg"  name="image" value=""placeholder="Attatch image"required multiple>
+      </div>
+      
+        <button type="submit" class="btn btn-primary mr-2">Submit</button>
+        <!-- <button class="btn btn-light">Cancel</button> -->
+      </form>
+    </div>
+  </div>
+</div>
+<%- include ('adminFooter-layout.ejs')%>

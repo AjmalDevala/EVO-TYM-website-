@@ -1,0 +1,61 @@
+<%- include ('adminHeader-layout.ejs')%>
+
+  <!-- ADD Categorie -->
+  <div class="card-body col-md-4">
+    <h4 class="card-title"> ADD CATEGORY</h4>
+    <form class="forms-sample" action="/admin/newCategory" method="post">
+      <div class="form-group">
+        <label for="exampleInputName1">Category Name</label>
+        <input type="text" name="category" class="form-control"  id="exampleInputName1" >
+      </div>
+      <button type="submit" class="btn btn-primary mr-2">ADD Category</button>
+      <!-- <button class="btn btn-light">Cancel</button> -->
+    </form>
+</div>
+
+<!-- ........................................................................................................ -->
+    <!-- show products -->
+
+<div class="card-body col-md-4"> 
+    <div class="card">
+      <div class="card-body">
+        <h4 class="card-title"> ALL CATEGORY</h4>
+        <p class="card-description">
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th> Index </th>
+              <th>Category Name</th>
+              <th>Action</th>
+
+            </tr>
+          </thead>
+          <tbody>
+            <% category.forEach(function(cate) {%> 
+            <tr>
+              <td><%=index++ %> </td>
+              <td> <%= cate.category %></td>
+              <td>
+
+                <% if (cate.status=="active" ) { %>
+                  <form action="/admin/inActiveCategory/<%= cate._id %> " method="post">
+                    <button type="submit" class="btn btn-danger"  onclick="alert('Are you sure you want to IN ACTIVE')"> In Active</button>
+                  </form>
+                  <% } else { %>
+                    <form action="/admin/activeCategory/<%= cate._id %> " method="post">
+                      <button type="submit" class="btn btn-success" onclick="alert('Are you sure You want to ACTIVE CATEGORY')">
+                        Active</button>
+                    </form>
+                  <% } %>
+              </td>
+            </tr>
+            <% }) %> 
+
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+
+
+  <%- include ('adminFooter-layout.ejs')%>

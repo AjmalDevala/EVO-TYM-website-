@@ -1,0 +1,52 @@
+<%- include ('adminHeader-layout.ejs')%>
+
+<div class="col-lg-9 grid-margin stretch-card">
+  <div class="card">
+    <div class="card-body">
+      <h4 class="card-title">Edit PRODUCT</h4>  
+    <form class="forms-sample" action="/admin/editProduct/<%= product._id%> " method="post" enctype="multipart/form-data">
+      <div class="form-group">
+        <label for="exampleSelectGender">Choose Category</label>
+        
+        <select class="form-control" id="exampleSelectGender" name="category" >
+
+          <% category.forEach (function (pro) { %>
+            <% if(pro.status=="active"){ %>
+          <option value="<%= pro._id %>"><%= pro.category %> </option>
+          <% } %>  
+        <% }) %> 
+        </select>
+      </div>
+        <div class="form-group" >
+          <label for="exampleInputName1">Product Name</label>
+          <input type="text" class="form-control" id="exampleInputName1" name="name" placeholder="<%= product.name %>"  required value="<%= product.name %>">
+        </div>
+        
+        
+        <div class="form-group" >
+          <label for="exampleInputName1">Product Price</label>
+          <input type="number" class="form-control" id="exampleInputName1"  name="price" placeholder="<%= product.price %> " required pattern ="[0-9]" value="<%= product.price %>">
+        </div>
+
+        <div class="form-group">
+          <label for="exampleInputName1"> brand</label>
+          <input type="text" class="form-control" id="exampleInputName1" name="brand" placeholder=" <%= product.brand %>" required value="<%= product.brand %>"  >
+        </div>
+
+        <div class="form-group">
+          <label for="exampleInputName1"> About Product</label>
+          <input type="text" class="form-control" id="exampleInputName1" name="description" placeholder="<%= product.description %>" value="<%= product.description %>" >
+        </div>
+
+        <div class="form-group">
+          <label for="name"class="text-light">Image</label>
+          <div ><img style="height:80px ; width:80px ;" src="/admin/evoimg/<%= product.image %>" alt="oopsimg"></div>
+          <input type="file" accept="image/png,image/jpeg" name="image" placeholder="<%= product.image %>">
+        </div>
+      
+        <button type="submit" class="btn btn-primary mr-2">Submit</button>
+      </form>
+    </div>
+  </div>
+</div>
+<%- include ('adminFooter-layout.ejs')%>

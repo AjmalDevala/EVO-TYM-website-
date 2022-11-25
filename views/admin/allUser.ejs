@@ -1,0 +1,55 @@
+<%- include ('adminHeader-layout.ejs')%>
+
+  <div class="card mt-2 mx-4 col-sm-9 ">
+    <h5 class="card-header">All users list</h5>
+    <div class="table-responsive text-nowrap">
+      <table class="table table-dark table-striped">
+        <thead>
+          <tr>
+            <th scope="col">Index</th>
+            <th scope="col">Name</th>
+            <th scope="col">Email</th>
+            <th scope="col">Phone</th>
+            <th scope="col">Status</th>
+            <th scope="col">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% users.forEach(function(user){ %>
+            <tr>
+              <th scope="row">
+                <%= index++ %>
+              </th>
+              <td>
+                <%= user.name %>
+              </td>
+              <td>
+                <%= user.email %>
+              </td>
+              <td>
+                <%= user.phone %>
+              </td>
+              <td>
+                <%= user.status %>
+              </td>
+              <td>
+                <% if (user.status=="Blocked" ) { %>
+                  <form action="/admin/unblockUser/<%= user._id %> " method="post">
+                    <button type="submit" class="btn btn-success"  onclick="alert('Are you sure you want to UnBlock')"> UnBlock</button>
+                  </form>
+                  <% } else { %>
+                    <form action="/admin/blockUser/<%= user._id %> " method="post">
+                      <button type="submit" class="btn btn-danger" onclick="alert('You want to Block the user')">
+                        Block</button>
+                    </form>
+                  <% } %>
+              </td>
+            </tr>
+            <% }) %>
+        </tbody>
+      </table>
+
+    </div>
+  </div>
+  
+<%- include ('adminFooter-layout.ejs')%>

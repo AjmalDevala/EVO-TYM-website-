@@ -1,0 +1,79 @@
+<%- include('headerlink-layout.ejs') %>
+  <!-- Start Banner Area -->
+  <section class="banner-area organic-breadcrumb">
+    <div class="container">
+      <div class="breadcrumb-banner d-flex flex-wrap align-items-center justify-content-end">
+        <div class="col-first">
+          <h1>Login/Register</h1>
+          <nav class="d-flex align-items-center">
+            <a href="/">Home<span class="lnr lnr-arrow-right"></span></a>
+            <a href="/login_page">Login/Register</a>
+          </nav>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- End Banner Area -->
+
+  <!--================Login Box Area =================-->
+  <section class="login_box_area section_gap">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-6">
+          <div class="login_box_img">
+            <img class="img-fluid" src="/user/img/login.jpg" alt="" />
+            <div class="hover">
+              <h4>REGISTER HERE</h4>
+              <p>
+                Ready to make a online community
+              </p>
+              <a class="primary-btn"  href="/signup_page">Create an Account</a>
+            </div>
+          </div>
+        </div>
+        <!-- Swal.fire(
+  'Good job!',
+  'You clicked the button!',
+  'success'
+) -->
+
+        <div class="col-lg-6">
+          <div class="login_form_inner">
+            <h3>Log in to enter</h3>
+            <form class="row login_form" action="/login" method="post" id="contactForm">
+
+              <div class="form-outline mb-4">
+                <input type="email" id="form3Example3" class="form-control" name="email" placeholder="Enter Email"
+                  required />
+                  <% if(emailErr){ %>
+                    <p class="text-danger">Email is incorrect</p>
+                    <% } %> 
+              </div>
+              <div class="form-outline mb-4">
+                <input type="password" id="form3Example4" class="form-control" name="password" placeholder="Password"
+                  required />
+                  <% if(passErr){ %>
+                    <p class="text-danger">password is incorrect</p>
+                    <% } %> 
+              </div>
+              <div class="col-md-12 form-group">
+                <div class="creat_account">
+                  <input type="checkbox" id="f-option2" name="selector" />
+                  <label for="f-option2">Keep me logged in</label>
+                </div>
+              </div>
+              <div class="col-md-12 form-group">
+                <button type="submit" value="submit"   class="primary-btn"> Log In</button>
+                <!-- onclick="Swal.fire('WELCOME BACK')"  -->
+
+                <a href="#">Forgot Password?</a>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!--================End Login Box Area =================-->
+
+  <%- include('footer-layout.ejs') %>

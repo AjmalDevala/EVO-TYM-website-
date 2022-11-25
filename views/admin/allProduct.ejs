@@ -1,0 +1,73 @@
+<%- include ('adminHeader-layout.ejs')%>
+
+<div class="col-lg-9 grid-margin stretch-card">
+    <div class="card">
+      <div class="card-body" >
+        <h4 class="card-title">All Products</h4>
+        <table class="table table-bordered ">
+          <thead class="tabile head btn-light bg-success">
+            <tr>
+              <th scope="col"> Index </th>
+              <th scope="col"> Category </th>
+              <th scope="col"> Name </th>
+              <th scope="col"> Price </th>
+              <th scope="col"> Brand </th>
+              <th  style=" width: 35%;"> Description  </th>
+              <th scope="col"> Image </th>
+              <th scope="col"> status </th>
+              <th scope="col"> Action </th>
+            </tr>
+          </thead>
+          <tbody>
+            <% products.forEach(function(pro){ %> 
+            <tr>
+              <td> <%= index++ %></td>
+              <td> <%= pro?.category?.category %></td>
+              <td> <%= pro.name %></td>
+              <td> <%= pro.price %></td>
+              <td> <%= pro.brand %></td>
+              <td > <small>  <%= pro.description  %></td></small>
+              <td><img src="/admin/evoimg/<%= pro.image %> " alt="" style ="height: 60px; width: 60px ;">  </td>
+              <td> <%= pro.status  %></td>
+              <td>
+
+                <% if (pro.status=="list" ) { %>
+                  <form action="/admin/unListProduct/<%= pro._id %> " method="post">
+                    <button type="submit" class="btn btn-danger"  onclick="alert('Are you sure you want to UNLIST')"> UNLIST</button>
+                  </form>
+                  <% } else { %>
+                    <form action="/admin/listProduct/<%= pro._id %> " method="post">
+                      <button type="submit" class="btn btn-success" onclick="alert('Are you sure You want to LIST PRODUCT')">
+                        LIST</button>
+                    </form>
+                  <% } %>
+                  <form action="/admin/editProductPage/<%= pro._id %> " method="post"><button class="btn btn-primary">EDIT</button></form>
+              </td>
+            </tr>
+            <% }) %> 
+
+
+            <section class="d-flex justify-content-center mt-2">
+              <% if(hasPreviousPage){ %>
+                <a style="text-decoration: none;padding: .5rem; margin:0 1rem; color:black" class="text-center"
+                  href="/admin/allProductPage?page=<%= PreviousPage %>"><i class="fa fa-chevron-left"
+                    aria-hidden="true"></i></a>
+                <% } %>
+                  <a style="text-decoration: none;padding: .5rem; margin:0 1rem; color:black; border: 1px solid black;"
+                    href="/admin/allProductPage?page=<%= page %>">
+                    <%= page %>
+                  </a>
+                  <% if(hasNextPage) { %>
+                    <a style="text-decoration: none;padding: .5rem; margin:0 1rem; color:black;"
+                      href="/admin/allProductPage?page=<%=  page+1 %>"><i class="fa fa-chevron-right"
+                        aria-hidden="true"></i></a>
+                    <% } %>
+
+            </section>
+            
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <%- include ('adminFooter-layout.ejs')%>
