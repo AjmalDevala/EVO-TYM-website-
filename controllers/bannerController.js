@@ -1,1 +1,1 @@
-const bannerModel = require("")
+const bannerModel = require("");
