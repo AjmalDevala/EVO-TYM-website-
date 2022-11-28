@@ -7,61 +7,30 @@
       <div class="col-lg-12">
         <div class="active-banner-slider owl-carousel">
           <!-- single-slide -->
+
+          <% banner.forEach(function(x){  %> 
           <div class="row single-slide align-items-center d-flex">
             <div class="col-lg-5 col-md-6">
               <div class="banner-content">
-                <h1>Apple New <br />Collection!</h1>
+                <h1><%= x.tittle %> </h1>
                 <p>
-                  Meet the most rugged and capable Apple Watch ever. With a robust titanium case,
-                   precision dual-frequency GPS, up to 36 hours of battery life
+                <%= x.text%> 
                 </p>
-                <% if(login){ %>
-                <div class="add-bag d-flex align-items-center">
-                  <a class="add-btn" href=""
-                    ><span class="lnr lnr-cross"></span></a>
-                  <span class="add-text text-uppercase">Add to Bag</span>
-                </div>
-                <% } %>
               </div>
             </div>
             <div class="col-lg-6">
               <div class="banner-img">
                 <img
                   class="img-fluid"
-                  src="/user/img/banner/apple2.png"
+                  src="/admin/evoimg/<%= x.image %>"
                   alt=""
                 />
               </div>
             </div>
           </div>
+          <% }) %> 
+
           <!-- single-slide -->
-          <div class="row single-slide align-items-center d-flex">
-            <div class="col-lg-5 col-md-6">
-              <div class="banner-content">
-                <h1>Apple New <br />Collection!</h1>
-                <p>
-                  Meet the most rugged and capable Apple Watch ever. With a robust titanium case,
-                   precision dual-frequency GPS, up to 36 hours of battery life
-                </p>
-                <% if(login){ %>
-                  <div class="add-bag d-flex align-items-center">
-                    <a class="add-btn" href=""
-                      ><span class="lnr lnr-cross"></span></a>
-                    <span class="add-text text-uppercase">Add to Bag</span>
-                  </div>
-                  <% } %>
-              </div>
-            </div>
-            <div class="col-lg-6">
-              <div class="banner-img">
-                <img
-                  class="img-fluid"
-                  src="/user/img/banner/apple2.png"
-                  alt=""
-                />
-              </div>
-            </div>
-          </div>
 
       </div>
     </div>

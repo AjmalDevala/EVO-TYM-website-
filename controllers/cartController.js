@@ -1,6 +1,5 @@
 const { default: mongoose } = require('mongoose');
 const cartModel = require('../models/cartModel');
-const categoryModel = require('../models/categoryModel');
 const productModel = require('../models/productModel');
 
 module.exports = {

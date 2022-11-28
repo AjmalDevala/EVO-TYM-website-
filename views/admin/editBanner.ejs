@@ -1,0 +1,33 @@
+<%- include ('adminHeader-layout.ejs')%>
+
+<div style="margin-top: 80px;">
+    <div class="col-lg-9 grid-margin stretch-card">
+        <div class="card">
+          <div class="card-body">
+            <h4 class="card-title">EDIT BANNER</h4>
+
+          <form class="forms-sample" action="/admin/updatebanner/<%= banner._id%>" method="post" enctype="multipart/form-data">
+
+              <div class="form-group">
+                <label for="exampleInputName1">Banner Tittle</label>
+                <input type="text" class="form-control"  name="tittle" placeholder="<%= banner.tittle%>" value=" <%= banner.tittle  %> " required >
+              </div>
+              <div class="form-group">
+                <label for="exampleTextarea1">Description</label>
+                <input class="form-control" placeholder="<%= banner.text%> "  name="text"  required  rows="4" value="<%= banner.text  %> "></input>
+              </div>  
+               <div class="form-group">
+                <label for="name"class="text-light">Image</label>
+                <div ><img style="height:80px ; width:80px ;" src="/admin/evoimg/<%= banner.image%>" alt="oopsimg"></div>
+                <input type="file" accept="image/png,image/jpeg" name="image"   placeholder="<%= banner.image %>" value="<%= banner.image %>" >
+              </div>
+            
+              <button type="submit" class="btn btn-primary mr-2">Submit</button>
+            </form>
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+  </div>

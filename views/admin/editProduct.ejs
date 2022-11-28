@@ -41,7 +41,7 @@
         <div class="form-group">
           <label for="name"class="text-light">Image</label>
           <div ><img style="height:80px ; width:80px ;" src="/admin/evoimg/<%= product.image %>" alt="oopsimg"></div>
-          <input type="file" accept="image/png,image/jpeg" name="image" placeholder="<%= product.image %>">
+          <input type="file" accept="image/png,image/jpeg" name="image" placeholder="<%= product.image %>" value="<%= product.image%> ">
         </div>
       
         <button type="submit" class="btn btn-primary mr-2">Submit</button>

@@ -5,6 +5,7 @@ const productModel = require('../models/productModel');
 const addressModel = require('../models/addressModel');
 const nodemailer = require('nodemailer')
 const { default: mongoose } = require('mongoose');
+const bannerModel = require('../models/bannerModel');
 
 
 
@@ -37,21 +38,23 @@ module.exports = {
 
     // ......................................................................
     // user home
-    homeView: async(req, res) => {
+    homeView: async (req, res) => {
 
         if (req.session.userlogin) {
-            const firstOne = await productModel.find({ status: "list" }).populate('category').sort( { date: -1 } ).limit( 8 )
+            banner = await bannerModel.find({})
+            const firstOne = await productModel.find({ status: "list" }).populate('category').sort({ date: -1 }).limit(8)
 
             res.render("user/home", {
                 login: true,
                 user: req.session.user,
-                firstOne
+                firstOne,
+                banner
             });
 
-        }else {
-            const firstOne = await productModel.find({ status: "list" }).populate('category').sort( { date: -1 } ).limit( 8 )
-
-            res.render("user/home",{login:false, firstOne })
+        } else {
+            banner = await bannerModel.find({})
+            const firstOne = await productModel.find({ status: "list" }).populate('category').sort({ date: -1 }).limit(8)
+            res.render("user/home", { login: false, firstOne,banner })
         }
 
     },
@@ -175,20 +178,26 @@ module.exports = {
         }
         req.session.user = user
         req.session.userlogin = true;
-        const firstOne = await productModel.find({ status: "list" }).populate('category').sort( { date: -1 } ).limit( 8 )
-        res.render('user/home', {  login: true,
-            user: req.session.user,firstOne})
+        const firstOne = await productModel.find({ status: "list" }).populate('category').sort({ date: -1 }).limit(8)
+        res.render('user/home', {
+            login: true,
+            user: req.session.user, firstOne
+        })
 
     },
 
     //=========================== // SESSION MIDDLE WARE===============================================================//
-   
-    userSession: async(req, res, next) => {
+
+    userSession: async (req, res, next) => {
         let userData = req.session.user;
-        let userId = userData._id;
-        let user = await userModel.findById({ _id: userId });
-        if (req.session.userlogin && user.status==="unBlocked") {
-            next()
+        if (userData) {
+            let userId = userData._id;
+            let user = await userModel.findById({ _id: userId });
+            if (req.session.userlogin && user.status === "unBlocked") {
+                next()
+            } else {
+                res.redirect('/login_page') 
+            }
         } else {
             res.redirect('/login_page')
         }
@@ -208,95 +217,99 @@ module.exports = {
     //showCategory user side all product
 
     showCategory: async (req, res) => {
-      
+
         const category = await categoryModel.find({ status: "active" })
         const products = await productModel.find({ status: "list" }).populate('category')
-        res.render("user/allProduct", { products, category, login: true,
-            user: req.session.user})
+        res.render("user/allProduct", {
+            products, category, login: true,
+            user: req.session.user
+        })
     },
 
     singleProductPage: async (req, res) => {
-      
+
         prodId = req.params.id;
         const pro = await productModel.findById({ _id: prodId }).populate('category')
-        res.render("user/singleProduct", { pro,  login: true,
-            user: req.session.user,})
+        res.render("user/singleProduct", {
+            pro, login: true,
+            user: req.session.user,
+        })
     },
 
     profilePage: async (req, res) => {
         let userData = req.session.user;
         let userId = userData._id;
         let user = await userModel.findOne({ _id: userId });
-        let add = await addressModel.findOne({ userId : userId})
-        if(add!=null){
-            if(add.address.length>0){
-                let num=add.address.length-1;
-                add =add.address[num];
-            }else{
-                add=[];
+        let add = await addressModel.findOne({ userId: userId })
+        if (add != null) {
+            if (add.address.length > 0) {
+                let num = add.address.length - 1;
+                add = add.address[num];
+            } else {
+                add = [];
             }
-        }else{
-            add=[];
+        } else {
+            add = [];
         }
-        res.render("user/profilePage", { user,login: true,add });
+        res.render("user/profilePage", { user, login: true, add });
 
-      },
+    },
 
-      addressPage :async(req, res) => {
+    addressPage: async (req, res) => {
         let userData = req.session.user;
         let userId = userData._id;
         let user = await userModel.findOne({ _id: userId });
-        let allAddress = await addressModel.findOne({ userId : userId})
-         if(allAddress != null){
-            allAddress =allAddress.address
-        }else{
-           allAddress=[]
+        let allAddress = await addressModel.findOne({ userId: userId })
+        if (allAddress != null) {
+            allAddress = allAddress.address
+        } else {
+            allAddress = []
         }
-        res.render("user/addressPage", { login: true ,allAddress ,user});  
+        res.render("user/addressPage", { login: true, allAddress, user });
     },
 
-      newAddress :async (req ,res) => {
-        const {fullName, address, city, state, pincode,phone} = req.body;
+    newAddress: async (req, res) => {
+        const { fullName, address, city, state, pincode, phone } = req.body;
         let userData = req.session.user;
         let userId = userData._id;
-    
-        let exist = await addressModel.findOne({userId : userId})
-    
+
+        let exist = await addressModel.findOne({ userId: userId })
+
         if (exist) {
-            await addressModel.findOneAndUpdate({userId }, {$push: {address:{fullName, address, city, state, pincode,phone}}})
-            .then(() => {
-                console.log(" one more address address added successfully");
-                res.redirect("/addressPage");
-            })
+            await addressModel.findOneAndUpdate({ userId }, { $push: { address: { fullName, address, city, state, pincode, phone } } })
+                .then(() => {
+                    console.log(" one more address address added successfully");
+                    res.redirect("/addressPage");
+                })
         }
         else {
-            const newaddress = new addressModel({ userId,address:[{fullName, address, city, state, pincode,phone}]});
-              await newaddress
+            const newaddress = new addressModel({ userId, address: [{ fullName, address, city, state, pincode, phone }] });
+            await newaddress
                 .save()
                 .then(() => {
-                  console.log(" new address added successfully");
-                  res.redirect("/profilePage");
+                    console.log(" new address added successfully");
+                    res.redirect("/profilePage");
                 })
                 .catch((err) => {
-                  console.log(err.message);
-                  res.redirect("/profilePage");
+                    console.log(err.message);
+                    res.redirect("/profilePage");
                 });
         }
-    
-      },
-      deleteaddress :async(req,res) =>{
+
+    },
+    deleteaddress: async (req, res) => {
         let id = req.params.id
         let userData = req.session.user;
         let userId = userData._id;
-        await addressModel.findOneAndUpdate({userId},{$pull:{address:{_id:id}}})
-        .then(()=>{
-            res.redirect("/addressPage")
-        })  
-      },
+        await addressModel.findOneAndUpdate({ userId }, { $pull: { address: { _id: id } } })
+            .then(() => {
+                res.redirect("/addressPage")
+            })
+    },
 
-     editProfile : async (req, res) => {
+    editProfile: async (req, res) => {
         const userId = req.params.id;
-        const { name, email,phone } = req.body;
+        const { name, email, phone } = req.body;
         const saveUserEdits = await userModel.findOneAndUpdate(
             { _id: userId },
             {
@@ -315,7 +328,7 @@ module.exports = {
 
 
 
-   
+
 
 
 

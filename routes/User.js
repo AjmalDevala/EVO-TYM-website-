@@ -22,7 +22,6 @@ router.get("/removeCart/:id/:price/:quantity",controller.userSession,cartcontrol
 router.get("/profilePage",controller.userSession,controller.profilePage)
 router.get("/addressPage",controller.userSession,controller.addressPage)
 router.get("/deleteaddress/:id",controller.deleteaddress)
-
 router.get("/confirmationPage",checkOutcontroller.confirmationPage)
 router.get("/checkOutPage",controller.userSession,checkOutcontroller.checkOutPage)
 
@@ -38,6 +37,11 @@ router.post ("/decQuantity/:id/:price",cartcontroller.decQuantity)
 router.post('/newAddress', controller.newAddress)
 router.post('/editProfile/:id',controller.editProfile);
 router.post('/changeAddress',checkOutcontroller.checkOutPage);
+router.post('/verifyPayment',checkOutcontroller.verifyPayment);
+router.post('/orderSuccessCOD',checkOutcontroller.orderSuccessCOD);
+router.post('/orderSuccess',checkOutcontroller.orderSuccess);
+router.post('/order',checkOutcontroller.order);
+
 
 // router.post('/change-quantity' ,cartcontroller.changeCartQuantity)
 

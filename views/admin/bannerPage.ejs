@@ -1,1 +1,78 @@
 <%- include ('adminHeader-layout.ejs')%>
+
+
+
+<div class="card mt-2 mx-4 col-sm-9 ">
+    <h5 class="card-header">ALL BANNER </h5>
+    <div class="table-responsive text-nowrap">
+      <table class="table table-bordered table-striped">
+        <thead>
+          <tr>
+            <th scope="col">Index</th>
+            <th scope="col">Tittle</th>
+            <th scope="col">Text</th>
+            <th scope="col">Image</th>
+            <th scope="col">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% banner.forEach(function(b){ %>
+            <tr>
+              <th scope="row"><%= index++ %> 
+              </th>
+              <td><%= b.tittle %> 
+              </td>
+              <td><%= b.text %> 
+              </td>
+              <td><img src="/admin/evoimg/<%= b.image %> " alt="nop" style ="height: 60px; width: 60px ;">  
+              </td>
+              <td>
+                <a class="btn btn-info" href="/admin/deleteBanner/<%= b._id %> ">REMOVE</a>
+
+                <form action="/admin/editBannerPage/<%= b._id %> " method="post"><button class="btn btn-primary">EDIT</button></form>
+              </td> 
+            </tr>
+            <% }) %> 
+        </tbody>
+      </table>
+    </div>
+
+
+  <div style="margin-top: 80px;">
+    <div class="col-lg-9 grid-margin stretch-card">
+        <div class="card">
+          <div class="card-body">
+            <h4 class="card-title">ADD NEW BANNER</h4>
+          <form class="forms-sample" action="/admin/newBanner" method="post" enctype="multipart/form-data">
+              <div class="form-group">
+                <label for="exampleInputName1">Banner Tittle</label>
+                <input type="text" class="form-control" id="exampleInputName1" name="tittle" placeholder="Banner Tittle"  required >
+              </div>
+              <div class="form-group">
+                <label for="exampleTextarea1">Description</label>
+                <textarea class="form-control" placeholder="About Banner"  name="text" required id="exampleTextarea1" rows="4"></textarea>
+              </div>  
+              <div class="form-group">
+                <label for="name"class="text-light">Image</label>
+                
+                <input type="file" accept="image/png,image/jpeg"  name="image" value=""placeholder="Attatch image"required multiple>
+            </div>
+            
+              <button type="submit" class="btn btn-primary mr-2">Submit</button>
+              <!-- <button class="btn btn-light">Cancel</button> -->
+            </form>
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+  </div>
+
+
+
+
+
+
+
+  
