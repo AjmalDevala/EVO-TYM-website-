@@ -40,21 +40,21 @@ module.exports = {
     // user home
     homeView: async (req, res) => {
 
-        if (req.session.userlogin) {
-            banner = await bannerModel.find({})
-            const firstOne = await productModel.find({ status: "list" }).populate('category').sort({ date: -1 }).limit(8)
+        const banner = await bannerModel.find()
+        let firstOne = await productModel.find({ status: "list" }).populate('category').sort({ date: -1 }).limit(8)
+        let lastOne = await productModel.find({ status: "list" }).populate('category').sort({ date: 1 }).limit(8)
 
+        if (req.session.userlogin) {
             res.render("user/home", {
                 login: true,
                 user: req.session.user,
                 firstOne,
+                lastOne,
                 banner
             });
-
         } else {
-            banner = await bannerModel.find({})
-            const firstOne = await productModel.find({ status: "list" }).populate('category').sort({ date: -1 }).limit(8)
-            res.render("user/home", { login: false, firstOne,banner })
+
+            res.render("user/home", { login: false, firstOne, banner, lastOne })
         }
 
     },
@@ -178,11 +178,7 @@ module.exports = {
         }
         req.session.user = user
         req.session.userlogin = true;
-        const firstOne = await productModel.find({ status: "list" }).populate('category').sort({ date: -1 }).limit(8)
-        res.render('user/home', {
-            login: true,
-            user: req.session.user, firstOne
-        })
+        res.redirect('/');
 
     },
 
@@ -211,7 +207,7 @@ module.exports = {
     //     } else {
     //         res.redirect('/login_page')
     //     }
-    // },    
+    // },
 
     //=============================================================================//
     //showCategory user side all product

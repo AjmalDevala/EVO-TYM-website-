@@ -1,5 +1,5 @@
 <%- include('headerlink-layout.ejs') %>
-<%- include('header-layout.ejs') %>
+	<%- include('header-layout.ejs') %>
 
 		<!-- Start Banner Area -->
 		<section class="banner-area organic-breadcrumb">
@@ -23,36 +23,19 @@
 					<div class="sidebar-categories">
 						<div class="head">Browse Categories</div>
 						<div class="common-filter">
-							<form action="#">
-								<% category.forEach(function(pro){ %>
-								<ul>
-									<li class="filter-list"><input class="pixel-radio" type="radio" id="asus"
-											name="brand"><a href="/products/<%= pro.category.id %>"></a><label for="asus"><%= pro.category %> <span>(29)</span></label></li>
-								</ul>
-								<% }) %> 
-							</form>
+
+							<% category.forEach(function(pro){ %>
+								<li class="main-nav-list btn"><a href="/products/<%= pro.category.id %>"><span
+											class=" btn"></span>
+										<%= pro.category %><span class="number ">(10+)</span>
+									</a>
+								</li>
+								<% }) %>
+
+
 						</div>
 					</div>
 					<div class="sidebar-filter mt-50">
-						<div class="top-filter-head"> Product Filters</div>
-						<div class="common-filter">
-							<div class="head">Brands</div>
-							<form action="#">
-								<ul>
-									<li class="filter-list"><input class="pixel-radio" type="radio" id="asus"
-											name="brand"><label for="asus">Casio<span>(29)</span></label></li>
-									<li class="filter-list"><input class="pixel-radio" type="radio" id="apple"
-											name="brand"><label for="apple">Apple<span>(29)</span></label></li>
-									<li class="filter-list"><input class="pixel-radio" type="radio" id="gionee"
-											name="brand"><label for="gionee">Fastrack<span>(19)</span></label></li>
-									<li class="filter-list"><input class="pixel-radio" type="radio" id="micromax"
-											name="brand"><label for="micromax">Tommy Hilfiger<span>(19)</span></label>
-									</li>
-									<li class="filter-list"><input class="pixel-radio" type="radio" id="samsung"
-											name="brand"><label for="samsung">Timex<span>(19)</span></label></li>
-								</ul>
-							</form>
-						</div>
 
 						<div class="common-filter">
 							<div class="head">Price</div>
@@ -105,7 +88,7 @@
 
 										<img class="img-fluid" src="/admin/evoimg/<%= pro.image %> "
 											alt="no img get users">
-										<div class="product-details text-truncate" >
+										<div class="product-details text-truncate">
 											<h6>
 												<%= pro.description %>
 											</h6>
@@ -114,19 +97,30 @@
 												</h6>
 												<!-- <h6 class="l-through">$210.00</h6> -->
 											</div>
-											<div class="prd-bottom"> 
-												<a href="/addToCart/<%=pro._id%> " class="social-info">
-													<span class="ti-bag"></span>
-													<p class="hover-text">add to bag</p>
+											<div class="prd-bottom">
+												
+												<a class="social-info">
+													<span class="btn btn-sm lnr ti-bag"
+														onclick="addToCart('<%=pro._id %>','<%=pro.name %>')">
+														<p class="hover-text pe-5">add to bag</p>
+													</span>
 												</a>
-												<a href="/addToWishList/<%= pro._id %> " class="social-info">
-													<span class="lnr lnr-heart"></span>
-													<p class="hover-text">Wishlist</p>
+
+												<a class="social-info">
+													<span class="btn btn-sm lnr lnr-heart"
+														onclick="addToWishlist('<%=pro._id %>','<%=pro.name %>')">
+														<p class="hover-text pe-5">Wishlist</p>
+													</span>
 												</a>
+
+
 												<a href="/singleProduct/<%= pro._id %> " class="social-info">
 													<span class="lnr lnr-move"></span>
 													<p class="hover-text">view more</p>
 												</a>
+
+
+
 											</div>
 										</div>
 									</div>
@@ -158,5 +152,69 @@
 				</div>
 			</div>
 		</div>
+
+
+		<script>
+
+			function addToWishlist(productId, productName) {
+
+				$.ajax({
+					url: '/addToWishList/' + productId,
+					method: 'get',
+					success: (response) => {
+						if (response.status) {
+							Swal.fire({
+
+
+								icon: 'success',
+								text: productName,
+								title: 'Item added to wishlist',
+								showConfirmButton: false,
+								timer: 1500
+							})
+						} else {
+							Swal.fire({
+								icon: 'error',
+								title: 'Oops...',
+								text: 'Something went wrong!',
+							})
+						}
+					}
+
+				})
+			}
+
+
+
+			
+			function addToCart (productId,productName) {
+		
+        $.ajax({
+            url: '/addToCart/'+productId,
+            method: 'get',
+            success: (response)  => {
+                if (response.status) {
+                    Swal.fire({
+                  
+                    
+                   icon: 'success',
+                   text: productName,
+                   title: 'Item added to Cart',
+                   showConfirmButton: false,
+                   timer: 1500
+                    })
+                } else {
+                    Swal.fire({
+                  icon: 'error',
+                  title: 'Oops...',
+                  text: 'Something went wrong!',
+                  })
+                }
+            }
+            
+        })
+     }
+
+		</script>
 
 		<%- include('footer-layout.ejs') %>

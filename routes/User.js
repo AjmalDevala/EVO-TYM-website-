@@ -4,6 +4,8 @@ const controller = require("../controllers/userController");
 const wlcontroller=require("../controllers/wishlistController")
 const cartcontroller=require("../controllers/cartController")
 const checkOutcontroller=require("../controllers/checkOutController")
+const orderController=require("../controllers/orderController")
+
 const router = express.Router();
 //................................................................................
 //get method 
@@ -25,9 +27,12 @@ router.get("/deleteaddress/:id",controller.deleteaddress)
 router.get("/confirmationPage",checkOutcontroller.confirmationPage)
 router.get("/checkOutPage",controller.userSession,checkOutcontroller.checkOutPage)
 
+router.get("/userOrderPage",controller.userSession,orderController.userOrderPage)
+router.get("/orderCancel/:orderId/:prodId",orderController.orderCancel )
+
 //...............................................................................
 //post method
-router.post("/login", controller.login)
+router.post("/login",controller.login)
 router.post("/otp",controller.otp)
 router.post('/resendotp', controller.resendotp)
 router.post('/verifyotp',controller.verifyotp)
@@ -37,12 +42,13 @@ router.post ("/decQuantity/:id/:price",cartcontroller.decQuantity)
 router.post('/newAddress', controller.newAddress)
 router.post('/editProfile/:id',controller.editProfile);
 router.post('/changeAddress',checkOutcontroller.checkOutPage);
-router.post('/verifyPayment',checkOutcontroller.verifyPayment);
-router.post('/orderSuccessCOD',checkOutcontroller.orderSuccessCOD);
-router.post('/orderSuccess',checkOutcontroller.orderSuccess);
-router.post('/order',checkOutcontroller.order);
+router.post('/checkoutNewAddress',checkOutcontroller.checkoutNewAddress)
 
 
+
+
+router.post('/placeOrder',controller.userSession,checkOutcontroller.placeOrder);
+router.post('/verifyPayment',controller.userSession,checkOutcontroller.verifyPayment);
 // router.post('/change-quantity' ,cartcontroller.changeCartQuantity)
 
 

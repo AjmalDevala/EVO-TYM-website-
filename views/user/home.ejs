@@ -207,18 +207,14 @@
         <% firstOne.forEach(function(x){ %> 
         <div class="col-lg-3 col-md-6">
           <div class="single-product">
-            <img class="img-fluid" src="/admin/evoimg/<%= x.image %>" alt="" />
+            <a href="/singleProduct/<%= x._id %>"><img class="img-fluid" src="/admin/evoimg/<%= x.image %>" alt="" /></a>
             <div class="product-details " >
               <h6><%=x.name  %> </h6>
               <div class="price">
                 <h6>$<%=x.price %> </h6>
                 <h6 class="l-through">$20%</h6>
               </div>
-              <div class="prd-bottom">
-                <a href="" class="social-info">
-                  <span class="ti-bag"></span>
-                  <p class="hover-text">add to bag</p>
-                </a>
+              <!-- <div class="prd-bottom d-flex justify-content-center">
                 <a href="/addToWishList/<%= x._id %> " class="social-info">
                   <span class="lnr lnr-heart"></span>
                   <p class="hover-text">Wishlist</p>
@@ -227,7 +223,7 @@
                   <span class="lnr lnr-move"></span>
                   <p class="hover-text">view more</p>
                 </a>
-              </div>
+              </div> -->
             </div>
           </div>
         </div>
@@ -251,29 +247,22 @@
       </div>
       <div class="row">
         <!-- single product -->
+        <% lastOne.forEach(function(x){ %> 
         <div class="col-lg-3 col-md-6">
           <div class="single-product">
-            <img class="img-fluid" src="img/product/p6.jpg" alt="" />
+            <img class="img-fluid" src="/admin/evoimg/<%= x.image %>" alt="" />
             <div class="product-details">
-              <h6>addidas New Hammer sole for Sports person</h6>
+              <h6><%=x.name  %></h6>
               <div class="price">
                 <h6>$150.00</h6>
-                <h6 class="l-through">$210.00</h6>
+                <h6 class="l-through">$<%=x.price %></h6>
               </div>
-              <div class="prd-bottom">
-                <a href="" class="social-info">
-                  <span class="ti-bag"></span>
-                  <p class="hover-text">add to bag</p>
-                </a>
-                <a href="" class="social-info">
+              <div class="prd-bottom d-flex justify-content-center">
+                <a href="/addToWishList/<%= x._id %> " class="social-info">
                   <span class="lnr lnr-heart"></span>
                   <p class="hover-text">Wishlist</p>
                 </a>
-                <a href="" class="social-info">
-                  <span class="lnr lnr-sync"></span>
-                  <p class="hover-text">compare</p>
-                </a>
-                <a href="" class="social-info">
+                <a href="/singleProduct/<%= x._id %>" class="social-info">
                   <span class="lnr lnr-move"></span>
                   <p class="hover-text">view more</p>
                 </a>
@@ -281,6 +270,7 @@
             </div>
           </div>
         </div>
+        <% }) %> 
         <!-- single product -->
       </div>
     </div>
@@ -324,7 +314,7 @@
       <div class="col-lg-6 no-padding exclusive-right">
         <div class="active-exclusive-product-slider">
           <!-- single exclusive carousel -->
-          <!-- <div class="single-exclusive-slider">
+          <div class="single-exclusive-slider">
             <img class="img-fluid" src="/user/img/12.jpeg" alt="" />
             <div class="product-details">
               <div class="price">
@@ -335,13 +325,12 @@
               <div
                 class="add-bag d-flex align-items-center justify-content-center"
               >
-                <a class="add-btn" href=""><span class="ti-bag"></span></a>
-                <span class="add-text text-uppercase">Add to Bag</span>
+            
               </div>
             </div>
           </div> -->
           <!-- single exclusive carousel -->
-          <!-- <div class="single-exclusive-slider">
+           <div class="single-exclusive-slider">
             <img class="img-fluid" src="/user/img/12.jpeg" alt="" />
             <div class="product-details">
               <div class="price">
@@ -352,11 +341,10 @@
               <div
                 class="add-bag d-flex align-items-center justify-content-center"
               >
-                <a class="add-btn" href=""><span class="ti-bag"></span></a>
-                <span class="add-text text-uppercase">Add to Bag</span>
+              
               </div>
             </div>
-          </div> -->
+          </div>
         </div>
       </div>
     </div>

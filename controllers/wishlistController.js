@@ -32,7 +32,8 @@ module.exports = {
                 { userId: user_id },
                 { $addToSet: { productIds: productId } }
             );
-            res.redirect("/wishList");
+            // res.redirect("/wishList");
+            res.json({status:true})
         } else {
             const wish = new wishlistModel({
                 userId: user_id,
@@ -40,7 +41,9 @@ module.exports = {
 
             });
             wish.save().then(() => {
-                res.redirect("/wishList")
+                res.json({status:true})
+
+                // res.redirect("/wishList")
             });
         }
 

@@ -2,6 +2,7 @@ const { Router } = require("express");
 const express = require ("express")
 const controller = require("../controllers/adminController");
 const bannerController=require("../controllers/bannerController")
+const orderController=require("../controllers/orderController")
 const { collection } = require("../models/adminModel");
 const router = express.Router();
 
@@ -17,6 +18,9 @@ router.get('/addProductPage',controller.addProductPage)
 router.get('/allProductPage',controller.allProductPage)
 router.get('/bannerPage',bannerController.bannerPage)
 router.get('/deleteBanner/:id',bannerController.deleteBanner)
+router.get('/orderManagement',controller.adminSession,orderController.orderManagement)
+router.get('/invoicePage/:orderId/:productId',controller.adminSession,orderController.invoice)
+
 //..............................................................
 //Admin post routers
 router.post ('/login',controller.login)
@@ -34,6 +38,8 @@ router.post ('/editProduct/:id',controller.editProduct)
 router.post ('/newBanner',bannerController.newBanner)
 router.post('/editBannerPage/:id',bannerController.editBannerPage)
 router.post('/updatebanner/:id',bannerController.updatebanner)
+router.post('/changeOrderStatus',orderController.editOrderStatus)
+
 
 
 module.exports = router;

@@ -207,6 +207,6 @@ module.exports = {
     logOut: (req, res) => {
         req.session.loggedOut = true;
         req.session.destroy()
-        res.redirect('admin/login')
+        res.redirect('/admin')
     }
 }

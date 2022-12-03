@@ -53,22 +53,18 @@
                             something that can make your interior look awesome, and at the same time give you the
                             pleasant warm feeling
                             during the winter.</p>
-                        <div class="product_count">
-                            <label for="qty">Quantity:</label>
-                            <input type="text" name="qty" id="sst" maxlength="12" value="1" title="Quantity:"
-                                class="input-text qty">
-                            <button
-                                onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst )) result.value++;return false;"
-                                class="increase items-count" type="button"><i class="lnr lnr-chevron-up"></i></button>
-                            <button
-                                onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst ) &amp&amp& sst > 0 ) result.value--;return false;"
-                                class="reduced items-count" type="button"><i class="lnr lnr-chevron-down"></i></button>
+                      
+                            <div class="card_area d-flex align-items-center">                               
+                               <button class="primary-btn"  style="border:none;"  onclick="addToCart('<%=pro._id %>','<%=pro.name %>')">Add To Cart</button>
+                            </div>
+                      
+                        <hr>
+                        
+                        <div class="card_area d-flex align-items-center">                               
+                           <button class="primary-btn " style="border:none;"  onclick="addToWishlist('<%=pro._id %>','<%=pro.name %>')">WishList</button>
                         </div>
-                        <div class="card_area d-flex align-items-center">
-                            <a class="primary-btn" href="#">Add to Cart</a>
-                            <a class="icon_btn" href="#"><i class="lnr lnr lnr-diamond"></i></a>
-                            <a class="icon_btn" href="#"><i class="lnr lnr lnr-heart"></i></a>
-                        </div>
+
+
                     </div>
                 </div>
             </div>
@@ -446,144 +442,68 @@
         </div>
     </section>
     <!--================End Product Description Area =================-->
+    
+  <script>
+   
+		function addToWishlist (productId,productName) {
+		
+        $.ajax({
+            url: '/addToWishList/'+productId,
+            method: 'get',
+            success: (response)  => {
+                if (response.status) {
+                    Swal.fire({
+                  
+                    
+                   icon: 'success',
+                   text: productName,
+                   title: 'Item added to wishlist',
+                   showConfirmButton: false,
+                   timer: 1500
+                    })
+                } else {
+                    Swal.fire({
+                  icon: 'error',
+                  title: 'Oops...',
+                  text: 'Something went wrong!',
+                  })
+                }
+            }
+            
+        })
+     }
 
-    <!-- Start related-product Area -->
-    <section class="related-product-area section_gap_bottom">
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-lg-6 text-center">
-                    <div class="section-title">
-                        <h1>Deals of the Week</h1>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut
-                            labore et dolore
-                            magna aliqua.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-lg-9">
-                    <div class="row">
-                        <div class="col-lg-4 col-md-4 col-sm-6 mb-20">
-                            <div class="single-related-product d-flex">
-                                <a href="#"><img src="img/r1.jpg" alt=""></a>
-                                <div class="desc">
-                                    <a href="#" class="title">Black lace Heels</a>
-                                    <div class="price">
-                                        <h6>$189.00</h6>
-                                        <h6 class="l-through">$210.00</h6>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-4 col-md-4 col-sm-6 mb-20">
-                            <div class="single-related-product d-flex">
-                                <a href="#"><img src="img/r2.jpg" alt=""></a>
-                                <div class="desc">
-                                    <a href="#" class="title">Black lace Heels</a>
-                                    <div class="price">
-                                        <h6>$189.00</h6>
-                                        <h6 class="l-through">$210.00</h6>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-4 col-md-4 col-sm-6 mb-20">
-                            <div class="single-related-product d-flex">
-                                <a href="#"><img src="img/r3.jpg" alt=""></a>
-                                <div class="desc">
-                                    <a href="#" class="title">Black lace Heels</a>
-                                    <div class="price">
-                                        <h6>$189.00</h6>
-                                        <h6 class="l-through">$210.00</h6>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-4 col-md-4 col-sm-6 mb-20">
-                            <div class="single-related-product d-flex">
-                                <a href="#"><img src="img/r5.jpg" alt=""></a>
-                                <div class="desc">
-                                    <a href="#" class="title">Black lace Heels</a>
-                                    <div class="price">
-                                        <h6>$189.00</h6>
-                                        <h6 class="l-through">$210.00</h6>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-4 col-md-4 col-sm-6 mb-20">
-                            <div class="single-related-product d-flex">
-                                <a href="#"><img src="img/r6.jpg" alt=""></a>
-                                <div class="desc">
-                                    <a href="#" class="title">Black lace Heels</a>
-                                    <div class="price">
-                                        <h6>$189.00</h6>
-                                        <h6 class="l-through">$210.00</h6>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-4 col-md-4 col-sm-6 mb-20">
-                            <div class="single-related-product d-flex">
-                                <a href="#"><img src="img/r7.jpg" alt=""></a>
-                                <div class="desc">
-                                    <a href="#" class="title">Black lace Heels</a>
-                                    <div class="price">
-                                        <h6>$189.00</h6>
-                                        <h6 class="l-through">$210.00</h6>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-4 col-md-4 col-sm-6">
-                            <div class="single-related-product d-flex">
-                                <a href="#"><img src="img/r9.jpg" alt=""></a>
-                                <div class="desc">
-                                    <a href="#" class="title">Black lace Heels</a>
-                                    <div class="price">
-                                        <h6>$189.00</h6>
-                                        <h6 class="l-through">$210.00</h6>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-4 col-md-4 col-sm-6">
-                            <div class="single-related-product d-flex">
-                                <a href="#"><img src="img/r10.jpg" alt=""></a>
-                                <div class="desc">
-                                    <a href="#" class="title">Black lace Heels</a>
-                                    <div class="price">
-                                        <h6>$189.00</h6>
-                                        <h6 class="l-through">$210.00</h6>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-4 col-md-4 col-sm-6">
-                            <div class="single-related-product d-flex">
-                                <a href="#"><img src="img/r11.jpg" alt=""></a>
-                                <div class="desc">
-                                    <a href="#" class="title">Black lace Heels</a>
-                                    <div class="price">
-                                        <h6>$189.00</h6>
-                                        <h6 class="l-through">$210.00</h6>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3">
-                    <div class="ctg-right">
-                        <a href="#" target="_blank">
-                            <img class="img-fluid d-block mx-auto" src="img/category/c5.jpg" alt="">
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- End related-product Area -->
+
+
+     function addToCart (productId,productName) {
+		
+        $.ajax({
+            url: '/addToCart/'+productId,
+            method: 'get',
+            success: (response)  => {
+                if (response.status) {
+                    Swal.fire({   
+                   icon: 'success',
+                   text: productName,
+                   title: 'Item added to Cart',
+                   showConfirmButton: false,
+                   timer: 1500
+                    })
+                } else {
+                    Swal.fire({
+                  icon: 'error',
+                  title: 'Oops...',
+                  text: 'Something went wrong!',
+                  })
+                }
+            }
+            
+        })
+     }
+
+  </script>
+
+    
 
 
     <%- include('footer-layout.ejs') %>

@@ -50,11 +50,11 @@ app.use(session({
 //routes admin and user 
 
 const { setEngine } = require('crypto');
-
-
-
 app.use('/', userRouter)
 app.use('/admin', adminRouter)
+app.use("*",(req,res)=>{
+    res.render('error');
+  })
 
 
 //create port 

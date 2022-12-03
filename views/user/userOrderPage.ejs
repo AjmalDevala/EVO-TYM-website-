@@ -1,0 +1,82 @@
+<%- include('headerlink-layout.ejs') %>
+<%- include('header-layout.ejs') %>
+
+    <div class="main" style="margin-top: 180px">
+        <div class="content-wrapper d-flex justify-content-center">
+                <div class="col-lg-9 grid-margin stretch-card">
+                    <div class="card ">
+                        <div class="card ">
+                            <h4 class="card-title">MY ORDER</h4>
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Product</th>
+                                        <th>Product Name</th>
+                                        <th>ORDERDATE</th>
+                                        <th>Quantuty</th>
+                                        <th>Price</th>
+                                        <th>Order Status</th>
+                                        <th>Payment</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="table-border">
+                                 <% order.forEach(function(product){ %>    
+                                    <% product.products.forEach(function(x){ %>
+                                    <tr>
+                                        <td><img src="/admin/evoimg/<%= x.productId.image %>" alt="" style="height: 60px; width:60px ;"></td>
+                                        <td><%= x.productId.name %></td>
+                                        <td ><%=moment(x.productId.date).format("LL") %></td>
+                                        <td><%= x.quantity %></td>
+                                        <td><strong><%= x.total %></strong></td>
+                                        <td><%= x.orderStatus %> </td>
+                                        <td><%= product.payment_method  %> </td>
+                                            
+                                             <% if(x.orderStatus =="Delivered") {%> 
+                                             <td><button class="btn btn-danger" onclick="Delivered()">CANCEL</button></td>
+                                             
+                                             <% }else if(x.orderStatus =="Cancelled") {%> 
+                                            <td><button class="btn btn-danger" onclick="Cancelled()">CANCEL</button></td>
+                                            <% }else{ %> 
+
+                                            <td><a href="/orderCancel/<%= product._id %>/<%= x._id %>">
+                                                <button class="btn btn-danger">CANCEL</button></a>
+                                            </td>
+                                            <% } %> 
+                                    </tr>
+                                    <% }) %>
+                                    <% }) %>
+                                   
+                                    
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+    <script>
+
+        function  Delivered(){
+            Swal.fire({
+                      icon: "error",
+                      title: "oops...",
+                      text: " PRODUCT Delivered"
+                      })
+        }
+
+        function  Cancelled	(){
+            Swal.fire({
+                      icon: "error",
+                      title: "oops...",
+                      text: " PRODUCT Alledy Cancelled	"
+                      })
+        }
+
+    </script>
+    <%- include('footer-layout.ejs') %>
