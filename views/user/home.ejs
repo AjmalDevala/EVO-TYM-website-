@@ -207,7 +207,7 @@
         <% firstOne.forEach(function(x){ %> 
         <div class="col-lg-3 col-md-6">
           <div class="single-product">
-            <a href="/singleProduct/<%= x._id %>"><img class="img-fluid" src="/admin/evoimg/<%= x.image %>" alt="" /></a>
+            <a href=""><img class="img-fluid" src="/admin/evoimg/<%= x.image %>" alt="" /></a>
             <div class="product-details " >
               <h6><%=x.name  %> </h6>
               <div class="price">
@@ -250,14 +250,14 @@
         <% lastOne.forEach(function(x){ %> 
         <div class="col-lg-3 col-md-6">
           <div class="single-product">
-            <img class="img-fluid" src="/admin/evoimg/<%= x.image %>" alt="" />
+            <a href="/singleProduct/<%= x._id %>"><img class="img-fluid" src="/admin/evoimg/<%= x.image %>" alt="" /></a>
             <div class="product-details">
               <h6><%=x.name  %></h6>
               <div class="price">
                 <h6>$150.00</h6>
                 <h6 class="l-through">$<%=x.price %></h6>
               </div>
-              <div class="prd-bottom d-flex justify-content-center">
+              <!-- <div class="prd-bottom d-flex justify-content-center">
                 <a href="/addToWishList/<%= x._id %> " class="social-info">
                   <span class="lnr lnr-heart"></span>
                   <p class="hover-text">Wishlist</p>
@@ -266,7 +266,7 @@
                   <span class="lnr lnr-move"></span>
                   <p class="hover-text">view more</p>
                 </a>
-              </div>
+              </div> -->
             </div>
           </div>
         </div>

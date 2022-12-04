@@ -79,8 +79,8 @@ module.exports = {
       invoice : async(req , res) => {
         const productId = req.params.orderId
         const orderId = req.params.productId
-        const orders =  await orderModel.findOne({_id : orderId }).populate('products.productId').populate('address')            
-        res.render('admin/invoice',{orders, moment})
+        const orders =  await orderModel.findOne({_id : orderId }).populate('products.productId').populate('address.index')            
+        res.render('admin/invoice',{orders, moment })
       },
 
 

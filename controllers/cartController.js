@@ -99,8 +99,6 @@ module.exports = {
    },
 
 
-
-
    incQuantity: async (req, res) => {
       let userData = req.session.user;
       const userId = userData._id;

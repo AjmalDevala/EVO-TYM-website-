@@ -1,9 +1,9 @@
 <%- include('headerlink-layout.ejs') %>
-<%- include('header-layout.ejs') %>
+    <%- include('header-layout.ejs') %>
 
-    <div class="main" style="margin-top: 180px">
-        <div class="content-wrapper d-flex justify-content-center">
-                <div class="col-lg-9 grid-margin stretch-card">
+        <div class="main" style="margin-top: 180px">
+            <div class="content-wrapper d-flex justify-content-center">
+                <!-- <div class="col-lg-9 grid-margin stretch-card">
                     <div class="card ">
                         <div class="card ">
                             <h4 class="card-title">MY ORDER</h4>
@@ -52,31 +52,149 @@
                             </table>
                         </div>
                     </div>
-                </div>
-            </div>
+                </div>  -->
+
+                <section class="container">
+                    <div class="container my-5">
+                        <div class="row" id="orderCard">
+                            <% order.forEach(function(order){ %>
+                                <% order.products.forEach(function(product){ %>
+                                    <div class="card mb-3">
+                                        <div class="row g-0">
+                                            <div class="col-5 col-md-2">
+                                                <img class="card-img card-img-left"
+                                                    src="/admin/evoimg/<%= product.productId.image %>" alt="Card image"
+                                                    style="height: 150px; width: 120px; object-fit: cover" />
+                                            </div>
+                                            <div class="col-6 col-md-4">
+                                                <div class="card-body">
+                                                    <h5 class="card-title">
+                                                        <%= product.productId.name %>
+                                                    </h5>
+                                                    <strong class="card-text">Price : <%= product.productId.price %>
+                                                    </strong><br />
+                                                    <strong class="card-text">Qty : <%= product.quantity %>
+                                                    </strong><br />
+                                                    <strong class="card-text">Total : <%= product.total %>
+                                                    </strong><br />
+                                                    <% if(order.orderStatus !='OrderPlaced' ){ %>
+                                                        <p class="card-text">
+                                                            <small class="text-muted">
+                                                                <%= order.orderStatus %> At :
+                                                                    <%=moment(product.productId.date).format("LL") %>
+                                                            </small>
+                                                        </p>
+                                                        <% } %>
+                                                            <% if(order.orderStatus !="Cancelled" && order.orderStatus
+                                                                !="Delivered" ){ %>
+                                                                <p class="card-text">
+                                                                    <small class="text-muted">Expected delivery Date :
+                                                                        <%=moment(product.productId.date).format("LL")
+                                                                            %>
+                                                                    </small>
+                                                                </p>
+                                                                <% } %>
+                                                </div>
+                                            </div>
+
+
+                                            <div
+                                                class="col-md-4 m-2 d-flex align-items-center justify-content-center  ">
+                                                <strong>Order status : </strong>
+                                                <% if(product.orderStatus=="Packed" ){ %>
+                                                    <span class="badge badge-secondary me-1">Packed</span>
+                                                    <% }else if(product.orderStatus=="Shipped" ){ %>
+                                                        <span class="badge badge-info me-1">Shipped</span>
+                                                        <% }else if(product.orderStatus=="Delivered" ){ %>
+                                                            <span class="badge badge-success me-1">Delivered</span>
+                                                            <% }else if(product.orderStatus=="Cancelled" ){ %>
+                                                                <span class="badge badge-danger me-1">Cancelled</span>
+                                                                <% }else{ %>
+                                                                    <span class="badge badge-danger me-1">pending</span>
+                                                                    <% } %>
+                                            </div>
+
+
+
+
+
+                                            <div class="col-md-1 d-flex align-items-center justify-content-center-2">
+                                                <% if(product.orderStatus=="Delivered" ) {%>
+                                                    <a href=""><button
+                                                            class="btn btn-outline-info m-2" onclick="Delivered()">
+                                                            Cancel
+                                                        </button></a>
+                                                    <% }else if (product.orderStatus=="Cancelled" ){ %>
+                                                        <a href="/orderCancel/<%= order._id %>/<%= product._id %>"><button
+                                                                class="btn btn-outline-info m-2 " onclick="Cancelled()">
+                                                                Cancel
+                                                            </button></a>
+                                                        <%} else{%>
+                                                            <a href="/orderCancel/<%= order._id %>/<%= product._id %>"><button
+                                                                    class="btn btn-outline-info">
+                                                                    Cancel
+                                                                </button></a>
+                                                            <% }%>
+
+
+                                            </div>
+                                        </div>
+
+                                        <div class="progress">
+
+                                            <% if(product.orderStatus=="Packed" ){ %>
+
+                                            <div class="progress-bar-striped bg-success" style="width:20%">
+                                                packed
+                                            </div>
+                                            <%}else if(product.orderStatus=="Shipped")   {%>
+                                                <div class="progress-bar-striped bg-info" style="width:30%">
+                                                shipped
+                                            </div>
+
+                                            <%}else if(product.orderStatus=="Delivered")   {%>
+                                                <div class="progress-bar bg-success" style="width:600%">
+                                                    Delivered
+                                            </div>
+                                            <%}else if(product.orderStatus=="Cancelled")   {%>
+                                                <div class="progress-bar bg-danger" style="width:100%">
+                                                    Cancelled
+                                            </div>
+                                                <%}else{%>
+                                                    <div class="progress-bar-striped bg-warning" style="width:100%">
+                                                waiting
+                                            </div>
+                                            
+                                                    <% } %>
+                                        </div>
+                                    </div>
+
+                                    <% }) %>
+                                        <% }) %>
+                        </div>
+                    </div>
+            
+            </section>
         </div>
-    </div>
 
 
+        <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
+        <script>
+            function Delivered() {
+                Swal.fire({
+                    icon: "error",
+                    title: "PRODUCT Delivered",
+                    text: " oops...",
+                });
+            }
 
-    <script>
-
-        function  Delivered(){
-            Swal.fire({
-                      icon: "error",
-                      title: "oops...",
-                      text: " PRODUCT Delivered"
-                      })
-        }
-
-        function  Cancelled	(){
-            Swal.fire({
-                      icon: "error",
-                      title: "oops...",
-                      text: " PRODUCT Alledy Cancelled	"
-                      })
-        }
-
-    </script>
-    <%- include('footer-layout.ejs') %>
+            function Cancelled() {
+                Swal.fire({
+                    icon: "error",
+                    title: "oops...",
+                    text: " PRODUCT Alledy Cancelled	",
+                });
+            }
+        </script>
+        <%- include('footer-layout.ejs') %>

@@ -54,8 +54,8 @@
             <div class="tm_invoice_info_left">
               <p class="tm_mb2"><b>Invoice To:<%= orders._id%></b></p>
               <p>
-                <b class="tm_f16 tm_primary_color"> <%= orders.address.fullName %></b> <br>
-                <%= orders.address.address %>, London <br>United Kingdom. <br>
+                <b class="tm_f16 tm_primary_color"><% orders.address.fullName  %>  </b> <br>
+                , London <br>United Kingdom. <br>
                 lowell@gmail.com <br>
                 +44(0) 327 123 987
               </p>
@@ -84,49 +84,25 @@
                 <table>
                   <thead>
                     <tr>
-                      <th class="tm_width_7 tm_semi_bold tm_primary_color">Item</th>
+                      <th class="tm_width_7 tm_semi_bold tm_primary_color">orderItem</th>
                       <th class="tm_width_2 tm_semi_bold tm_primary_color">Price</th>
                       <th class="tm_width_1 tm_semi_bold tm_primary_color">Qty</th>
                       <th class="tm_width_2 tm_semi_bold tm_primary_color tm_text_right">Total</th>
                     </tr>
                   </thead>
                   <tbody>
-                    <tr class="tm_gray_bg">
-                      <td class="tm_width_7">
-                        <p class="tm_m0 tm_f16 tm_primary_color">Website Design</p>
-                        Six web page designs and three times revision
-                      </td>
-                      <td class="tm_width_2">$350</td>
-                      <td class="tm_width_1">1</td>
-                      <td class="tm_width_2 tm_text_right">$350</td>
-                    </tr>
-                    <tr >
-                      <td class="tm_width_7">
-                        <p class="tm_m0 tm_f16 tm_primary_color">Web Development</p>
-                        Convert pixel-perfect frontend and make it dynamic
-                      </td>
-                      <td class="tm_width_2">$600</td>
-                      <td class="tm_width_1">1</td>
-                      <td class="tm_width_2 tm_text_right">$600</td>
-                    </tr>
-                    <tr class="tm_gray_bg">
-                      <td class="tm_width_7">
-                        <p class="tm_m0 tm_f16 tm_primary_color">App Development</p>
-                        Android & Ios Application Development
-                      </td>
-                      <td class="tm_width_2">$200</td>
-                      <td class="tm_width_1">2</td>
-                      <td class="tm_width_2 tm_text_right">$400</td>
-                    </tr>
+                    <tbody>
+                      <% let index = 1 %>  
+                      <% orders.products.forEach(function(x){ %>
                     <tr>
-                      <td class="tm_width_7">
-                        <p class="tm_m0 tm_f16 tm_primary_color">Digital Marketing</p>
-                        Facebook, Youtube and Google Marketing
-                      </td>
-                      <td class="tm_width_2">$100</td>
-                      <td class="tm_width_1">3</td>
-                      <td class="tm_width_2 tm_text_right">$300</td>
+                      <td class="tm_width_3"><%= index++ %>. <%= x.productId.name %></td>
+                      <td class="tm_width_2">Rs.<%= x.productId.price %></td>
+                      <td class="tm_width_1"><%= x.quantity %></td>
+                      <td class="tm_width_2 tm_text_right">Rs.<%= x.productId.price %></td>
                     </tr>
+                    <% }) %>
+                    
+                   
                   </tbody>
                 </table>
               </div>
@@ -136,7 +112,7 @@
                 <div class="tm_mb10 tm_m0_md"></div>
                 <p class="tm_mb5">
                   <b class="tm_primary_color">Paypal & Stripe:</b> <br>
-                  invoma@gmail.com
+                  tvotym@gmail.com
                 </p>
                 <p class="tm_mb0">
                   <b class="tm_primary_color">Card Payment:</b> <br>
@@ -148,19 +124,19 @@
                   <tbody>
                     <tr>
                       <td class="tm_width_3 tm_primary_color tm_border_none tm_bold">Subtoal</td>
-                      <td class="tm_width_3 tm_primary_color tm_text_right tm_border_none tm_bold">$1650</td>
+                      <td class="tm_width_3 tm_primary_color tm_text_right tm_border_none tm_bold">$<%= orders.cartTotal%> </td>
                     </tr>
-                    <tr>
-                      <td class="tm_width_3 tm_danger_color tm_border_none tm_pt0">Discount 10%</td>
+                    <!-- <tr>
+                      <td class="tm_width_3 tm_danger_color tm_border_none tm_pt0">Discount %</td>
                       <td class="tm_width_3 tm_danger_color tm_text_right tm_border_none tm_pt0">+$164</td>
-                    </tr>
+                    </tr> -->
                     <tr>
-                      <td class="tm_width_3 tm_primary_color tm_border_none tm_pt0">Tax 5%</td>
-                      <td class="tm_width_3 tm_primary_color tm_text_right tm_border_none tm_pt0">+$82</td>
+                      <td class="tm_width_3 tm_primary_color tm_border_none tm_pt0">Tax 0%</td>
+                      <td class="tm_width_3 tm_primary_color tm_text_right tm_border_none tm_pt0">+$0</td>
                     </tr>
                     <tr>
                       <td class="tm_width_3 tm_border_top_0 tm_bold tm_f18 tm_white_color tm_accent_bg tm_radius_6_0_0_6">Grand Total	</td>
-                      <td class="tm_width_3 tm_border_top_0 tm_bold tm_f18 tm_primary_color tm_text_right tm_white_color tm_accent_bg tm_radius_0_6_6_0">$1732</td>
+                      <td class="tm_width_3 tm_border_top_0 tm_bold tm_f18 tm_primary_color tm_text_right tm_white_color tm_accent_bg tm_radius_0_6_6_0">$<%= orders.cartTotal%></td>
                     </tr>
                   </tbody>
                 </table>

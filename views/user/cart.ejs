@@ -151,36 +151,5 @@
 </section>
 
 
-
-<script>
-  function changeQuantity(productId, price, count) {
-    let quantity = parseInt(document.getElementById(productId).innerHTML);
-    count = parseInt(count);
-    $.ajax({
-      url: "/change-quantity",
-      data: {
-        product: productId,
-        count: count,
-        quantity: quantity,
-      },
-      method: "post",
-      success: (response) => {
-        if (response.status == true) {
-          console.log("cart updated");
-          document.getElementById(productId).innerHTML = quantity + count; //quantity
-          j = quantity + count;
-          document.getElementById("total" + productId).innerHTML =
-            "Rs." + j * price; //price total
-          if (j <= 1) {
-            document.getElementById("disable" + productId).disabled = true;
-          } else {
-            document.getElementById("disable" + productId).disabled = false;
-          }
-          document.getElementById("subtotal").innerHTML = response.sumTotal;
-        }
-      },
-    });
-  }
-</script>
 <!--================End Cart Area =================-->
 <%- include('footer-layout.ejs') %>

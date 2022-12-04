@@ -268,7 +268,6 @@ module.exports = {
         const { fullName, address, city, state, pincode, phone } = req.body;
         let userData = req.session.user;
         let userId = userData._id;
-
         let exist = await addressModel.findOne({ userId: userId })
 
         if (exist) {
