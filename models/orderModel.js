@@ -6,6 +6,7 @@ const orderSchema = new mongoose.Schema({
   userId: {
     type: ObjectId,
     required: true,
+    ref :"UserData"
   },
   products: {
     type: [
@@ -20,9 +21,30 @@ const orderSchema = new mongoose.Schema({
     ],
   },
   address: {
-    type: ObjectId,
-    required: true,
-    ref: "addressData",
+    fullName : {
+      type: String,
+      required: true
+  },
+  phone : {
+      type: Number,
+      required: true
+  },
+  address : {
+      type : String,
+      required: true
+  },
+  city : { 
+      type : String,
+      required : true
+  },
+  pincode : {
+      type :String,
+      required: true
+  },
+  state : {
+      type : String,
+      required : true
+  }
   },
   cartTotal: {
     type: Number,   

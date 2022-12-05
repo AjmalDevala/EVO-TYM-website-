@@ -17,6 +17,19 @@
 			</div>
 		</section>
 		<!-- End Banner Area -->
+
+		<div class="col-lg-6 col-6 text-left">
+				<div class="input-group">
+					<input type="text" class="form-control"id="myFilter" onkeyup="myFunction()" placeholder="Search for products">
+					<div class="input-group-append">
+						<span class="input-group-text bg-transparent text-primary">
+							<i class="fa fa-search"></i>
+						</span>
+					</div>
+				</div>
+		</div>
+
+
 		<div class="container">
 			<div class="row">
 				<div class="col-xl-3 col-lg-4 col-md-5">
@@ -24,55 +37,51 @@
 						<div class="head">Browse Categories</div>
 						<div class="common-filter">
 
-							<% category.forEach(function(pro){ %>
-								<li class="main-nav-list btn"><a href="/products/<%= pro.category.id %>"><span
-											class=" btn"></span>
-										<%= pro.category %><span class="number ">(10+)</span>
-									</a>
-								</li>
-								<% }) %>
+							<span class=" head">ALL Category</span>
+
+									<% category.forEach(function(pro){ %>
+							   <ul id="all" data-toggle="collapse" aria-expanded="false" aria-controls="meatFish">
+								   <li class="main-nav-list child"><a href="showCategory?category=<%= pro._id%>"><%= pro.category %><span class="number">(5+)</span></a></li>
+								   <% }) %>
+								   
+							   </ul>
+						   </li>
 
 
 						</div>
 					</div>
 					<div class="sidebar-filter mt-50">
-
-						<div class="common-filter">
-							<div class="head">Price</div>
-							<div class="price-range-area">
-								<div id="price-range"></div>
-								<div class="value-wrapper d-flex">
-									<div class="price">Price:</div>
-									<span>$</span>
-									<div id="lower-value"></div>
-									<div class="to">to</div>
-									<span>$</span>
-									<div id="upper-value"></div>
-								</div>
-							</div>
-						</div>
 					</div>
 				</div>
 				<div class="col-xl-9 col-lg-8 col-md-7">
 
 					<!-- Start Filter Bar -->
 					<div class="filter-bar d-flex flex-wrap align-items-center">
-						<div class="sorting">
-							<select>
-								<option value="1">Default sorting</option>
-							</select>
-						</div>
+						
 						<div class="sorting mr-auto">
 							<select>
-								<option value="1">Show 12</option>
+								<option value="1">Total product :<%= totalproducts %> </option>
 
 							</select>
 						</div>
 						<div class="pagination">
-							<a href="#" class="prev-arrow"><i class="fa fa-long-arrow-left" aria-hidden="true"></i></a>
-							<a href="#" class="active">1</a>
-							<a href="#">2</a>
-							<a href="#">3</a>
+							<section class="d-flex justify-content-center mt-2 pagination">
+								<% if(hasPreviousPage){ %>
+								  <a style="text-decoration: none;padding: .5rem; margin:0 1rem; color:black" class="text-center"
+									href="/showCategory?page=<%= PreviousPage %>"><i class="fa fa-chevron-left"
+									  aria-hidden="true"></i></a>
+								  <% } %>
+									<a style="text-decoration: none;padding: .5rem; margin:0 1rem; color:black; border: 1px solid black;"
+									  href="/showCategory?page=<%= page %>">
+									  <%= page %>
+									</a>
+									<% if(hasNextPage) { %>
+									  <a style="text-decoration: none;padding: .5rem; margin:0 1rem; color:black;"
+										href="/showCategory?page=<%=  page+1 %>"><i class="fa fa-chevron-right"
+										  aria-hidden="true"></i></a>
+									  <% } %>
+				  
+							  </section>
 
 						</div>
 					</div>
@@ -80,7 +89,7 @@
 
 					<!-- Start Best Seller -->
 					<section class="lattest-product-area pb-40 category-list">
-						<div class="row">
+						<div class="row " id="myProducts">
 							<!-- single product -->
 							<% products.forEach(function(pro){ %>
 								<div class="col-lg-4 col-md-6">
@@ -88,6 +97,9 @@
 
 										<img class="img-fluid" src="/admin/evoimg/<%= pro.image %> "
 											alt="no img get users">
+											<h4 class="card-title text-truncate mb-3">
+												<%= pro.name %>
+											</h4>
 										<div class="product-details text-truncate">
 											<h6>
 												<%= pro.description %>
@@ -100,7 +112,7 @@
 											<div class="prd-bottom">
 												
 												<a class="social-info">
-													<span class="btn btn-sm lnr ti-bag"
+													<span class="btn btn-sm lnr ti-bag "
 														onclick="addToCart('<%=pro._id %>','<%=pro.name %>')">
 														<p class="hover-text pe-5">add to bag</p>
 													</span>
@@ -133,19 +145,28 @@
 					<div class="filter-bar d-flex flex-wrap align-items-center">
 						<div class="sorting mr-auto">
 							<select>
-								<option value="1">Show 12</option>
-								<option value="1">Show 12</option>
-								<option value="1">Show 12</option>
+								
+								<option value="1">Total product :<%= totalproducts %> </option>
 							</select>
 						</div>
 						<div class="pagination">
-							<a href="#" class="prev-arrow"><i class="fa fa-long-arrow-left" aria-hidden="true"></i></a>
-							<a href="#" class="active">1</a>
-							<a href="#">2</a>
-							<a href="#">3</a>
-							<a href="#" class="dot-dot"><i class="fa fa-ellipsis-h" aria-hidden="true"></i></a>
-							<a href="#">6</a>
-							<a href="#" class="next-arrow"><i class="fa fa-long-arrow-right" aria-hidden="true"></i></a>
+							<section class="d-flex justify-content-center mt-2 pagination">
+								<% if(hasPreviousPage){ %>
+								  <a style="text-decoration: none;padding: .5rem; margin:0 1rem; color:black" class="text-center"
+									href="/showCategory?page=<%= PreviousPage %>"><i class="fa fa-chevron-left"
+									  aria-hidden="true"></i></a>
+								  <% } %>
+									<a style="text-decoration: none;padding: .5rem; margin:0 1rem; color:black; border: 1px solid black;"
+									  href="/showCategory?page=<%= page %>">
+									  <%= page %>
+									</a>
+									<% if(hasNextPage) { %>
+									  <a style="text-decoration: none;padding: .5rem; margin:0 1rem; color:black;"
+										href="/showCategory?page=<%=  page+1 %>"><i class="fa fa-chevron-right"
+										  aria-hidden="true"></i></a>
+									  <% } %>
+				  
+							  </section>
 						</div>
 					</div>
 					<!-- End Filter Bar -->
@@ -215,6 +236,28 @@
         })
      }
 
+
+	 function myFunction() {
+                    console.log(1)
+                    let input, filter, cards, cardContainer, title, i;
+                    input = document.getElementById("myFilter");
+                    console.log(input)
+                    filter = input.value.toUpperCase();
+                    console.log(filter)
+                    cardContainer = document.getElementById("myProducts");
+                    console.log(cardContainer)
+                    cards = cardContainer.getElementsByClassName("card");
+                    console.log(input, filter, cards, cardContainer, title, i);
+                    for (i = 0; i < cards.length; i++) {
+                        title = cards[i].querySelector(".card-title");
+                        if (title.innerText.toUpperCase().indexOf(filter) > -1) {
+                            cards[i].style.display = "";
+                        } else {
+                            cards[i].style.display = "none";
+                        }
+                    }
+                }
+               
 		</script>
 
 		<%- include('footer-layout.ejs') %>

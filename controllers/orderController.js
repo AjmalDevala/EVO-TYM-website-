@@ -9,7 +9,7 @@ module.exports = {
     // admin order management
     orderManagement :async (req , res) => {
         let user = await userModel.find()
-        const orders =  await orderModel.find().sort({date:-1}).populate('products.productId')
+        const orders =  await orderModel.find().sort({date:-1}).populate('products.productId').populate('userId')
         res.render('admin/orderManagement' ,{orders,user,moment})      
       },
 
@@ -72,14 +72,10 @@ module.exports = {
 
       },
     
-
-
-
-
       invoice : async(req , res) => {
         const productId = req.params.orderId
         const orderId = req.params.productId
-        const orders =  await orderModel.findOne({_id : orderId }).populate('products.productId').populate('address.index')            
+        const orders =  await orderModel.findOne({_id : orderId }).populate('products.productId').populate('address').populate('userId')            
         res.render('admin/invoice',{orders, moment })
       },
 

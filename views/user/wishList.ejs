@@ -60,12 +60,12 @@
 								<td>
 									<h5></h5>
 								</td>
-								<td><a class="primary-btn" href="/addToCart/<%=x._id%> ">Ad to Cart</a></td>
+								<td><a class="primary-btn"onclick="addToCart('<%=x._id %>','<%=x.name %>')">ADCart</a></td>
 								
 							</tr>
 							<% }) %> 
 							
-							<!-- <tr class="out_button_area">
+							<tr class="out_button_area">
 								<tr class="bottom_button">
 							      </tr>
 						
@@ -74,7 +74,7 @@
 										<a class="primary-btn" href="#">Continue Shopping</a>
 									</div>
 								</td>
-							</tr> -->
+							</tr>
 
 						</tbody>
 					</table>
@@ -84,5 +84,36 @@
 		</div>
 	</section>
 	<!--================End Cart Area =================-->
+ <script>
+  
+ function addToCart (productId,productName) {
+		
+        $.ajax({
+            url: '/addToCart/'+productId,
+            method: 'get',
+            success: (response)  => {
+                if (response.status) {
+                    Swal.fire({   
+                   icon: 'success',
+                   text: productName,
+                   title: 'Item added to Cart',
+                   showConfirmButton: false,
+                   timer: 1500
+                    })
+                } else {
+                    Swal.fire({
+                  icon: 'error',
+                  title: 'Oops...',
+                  text: 'Something went wrong!',
+                  })
+                }
+            }
+            
+        })
+     }
 
+
+
+
+ </script>
 	<%- include('footer-layout.ejs') %>

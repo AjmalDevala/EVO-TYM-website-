@@ -129,7 +129,7 @@ module.exports = {
         res.render('admin/allProduct', { products, index: 1, page,
             hasNextPage: items_per_page * page < totalproducts,
             hasPreviousPage: page > 1,
-            PreviousPage: page - 1,})
+            PreviousPage: page - 1})
     },
 
     //................................................................................................

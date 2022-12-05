@@ -1,5 +1,6 @@
 <%- include ('adminHeader-layout.ejs')%>
 
+
 <div class="col-lg-9 grid-margin stretch-card">
     <div class="card">
       <div class="card-body" >
@@ -75,7 +76,25 @@
 
 
   <script>
-  function list ()
-
-  </script>
+    function myFunction() {
+        console.log(1)
+        let input, filter, cards, cardContainer, title, i;
+        input = document.getElementById("myFilter");
+        console.log(input)
+        filter = input.value.toUpperCase();
+        console.log(filter)
+        cardContainer = document.getElementById("myProducts");
+        console.log(cardContainer)
+        cards = cardContainer.getElementsByClassName("card");
+        console.log(input, filter, cards, cardContainer, title, i);
+        for (i = 0; i < cards.length; i++) {
+            title = cards[i].querySelector(".card-title");
+            if (title.innerText.toUpperCase().indexOf(filter) > -1) {
+                cards[i].style.display = "";
+            } else {
+                cards[i].style.display = "none";
+            }
+        }
+    }
+</script>
   <%- include ('adminFooter-layout.ejs')%>

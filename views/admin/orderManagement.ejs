@@ -5,6 +5,7 @@
         <table class="table">
           <thead>
             <tr>
+                <th>userName</th>
                 <th>Product</th>
                 <th>Product Name</th>
                 <th>Order date</th>
@@ -19,6 +20,7 @@
          <% orders.forEach(function(product){ %>    
             <% product.products.forEach(function(x){ %>
             <tr>
+                <td><%= product.userId.name %> </td>
                 <td><img src="/admin/evoimg/<%= x.productId.image %>" alt="" style="height: 60px; width:60px ;"></td>
                 <td><%= x.productId.name %></td>
                 <td style="width: 34px; font-size:11px;" ><%= moment(x.productId.date).format("LL") %></td>
@@ -91,27 +93,6 @@
       </div>
       <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.js"></script>
       <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
-
-<!-- // function changeStatus(status, orderId, productId){
-//             // axios.post('/adminLogin/changeStatus' , {status, orderId, productId}).then(()=>{
-//             //     window.location.reload()
-//             // })
-//             $.ajax({
-//                 url:"/adminLogin/changeStatus",
-//                 data:{
-//                     status,
-//                     orderId,
-//                     productId
-//                 },
-//                 method:"post",
-//                 success:(response)=>{
-//                     if(response.success){
-//                         window.location.reload()
-//                     }
-//                 }
-//             })
-//         } -->
 
       <script>
         function edit_order_status (orderId,proId,status) {

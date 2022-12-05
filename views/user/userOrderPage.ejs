@@ -64,7 +64,7 @@
                                             <div class="col-5 col-md-2">
                                                 <img class="card-img card-img-left"
                                                     src="/admin/evoimg/<%= product.productId.image %>" alt="Card image"
-                                                    style="height: 150px; width: 120px; object-fit: cover" />
+                                                    style="height: 212px; width: 173px; object-fit: cover" />
                                             </div>
                                             <div class="col-6 col-md-4">
                                                 <div class="card-body">
@@ -76,7 +76,9 @@
                                                     <strong class="card-text">Qty : <%= product.quantity %>
                                                     </strong><br />
                                                     <strong class="card-text">Total : <%= product.total %>
-                                                    </strong><br />
+                                                    </strong>
+                                                    <p class="card-text">PAYMENT: <%= order.payment_method  %>
+                                                    </p>
                                                     <% if(order.orderStatus !='OrderPlaced' ){ %>
                                                         <p class="card-text">
                                                             <small class="text-muted">
@@ -120,18 +122,18 @@
 
                                             <div class="col-md-1 d-flex align-items-center justify-content-center-2">
                                                 <% if(product.orderStatus=="Delivered" ) {%>
-                                                    <a href=""><button
+                                                    <a href="#"><button
                                                             class="btn btn-outline-info m-2" onclick="Delivered()">
                                                             Cancel
                                                         </button></a>
                                                     <% }else if (product.orderStatus=="Cancelled" ){ %>
-                                                        <a href="/orderCancel/<%= order._id %>/<%= product._id %>"><button
+                                                        <a href="#"><button
                                                                 class="btn btn-outline-info m-2 " onclick="Cancelled()">
                                                                 Cancel
                                                             </button></a>
                                                         <%} else{%>
                                                             <a href="/orderCancel/<%= order._id %>/<%= product._id %>"><button
-                                                                    class="btn btn-outline-info">
+                                                                    class="btn btn-outline-info" onclick="Cancel()">
                                                                     Cancel
                                                                 </button></a>
                                                             <% }%>
@@ -140,20 +142,20 @@
                                             </div>
                                         </div>
 
-                                        <div class="progress">
+                                        <div class="  active progress ">
 
                                             <% if(product.orderStatus=="Packed" ){ %>
 
-                                            <div class="progress-bar-striped bg-success" style="width:20%">
+                                            <div class="progress-bar-striped bg-success" style="width:30%">
                                                 packed
                                             </div>
                                             <%}else if(product.orderStatus=="Shipped")   {%>
-                                                <div class="progress-bar-striped bg-info" style="width:30%">
+                                                <div class="progress-bar-striped bg-info" style="width:60%">
                                                 shipped
                                             </div>
 
                                             <%}else if(product.orderStatus=="Delivered")   {%>
-                                                <div class="progress-bar bg-success" style="width:600%">
+                                                <div class="progress-bar bg-success" style="width:1000%">
                                                     Delivered
                                             </div>
                                             <%}else if(product.orderStatus=="Cancelled")   {%>
@@ -161,7 +163,7 @@
                                                     Cancelled
                                             </div>
                                                 <%}else{%>
-                                                    <div class="progress-bar-striped bg-warning" style="width:100%">
+                                                    <div class="progress-bar-striped bg-warning" style="width:10%">
                                                 waiting
                                             </div>
                                             
@@ -193,7 +195,14 @@
                 Swal.fire({
                     icon: "error",
                     title: "oops...",
-                    text: " PRODUCT Alledy Cancelled	",
+                    text: "order has been Cancelled!",
+                });
+            }
+            function Cancel() {
+                Swal.fire({
+                    icon: "error",
+                    title: "oops...",
+                    text: "order  Cancelled!",
                 });
             }
         </script>

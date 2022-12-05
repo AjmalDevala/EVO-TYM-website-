@@ -54,10 +54,11 @@
             <div class="tm_invoice_info_left">
               <p class="tm_mb2"><b>Invoice To:<%= orders._id%></b></p>
               <p>
-                <b class="tm_f16 tm_primary_color"><% orders.address.fullName  %>  </b> <br>
-                , London <br>United Kingdom. <br>
-                lowell@gmail.com <br>
-                +44(0) 327 123 987
+                <b class="tm_f16 tm_primary_color"><%= orders.userId.name  %>  </b><br>
+                <%= orders.address.address  %>
+                , <%= orders.address.city  %> <br> <%= orders.address.state %> <br>
+                <%= orders.userId.email  %><br>
+                + <%= orders.address.phone  %>
               </p>
             </div>
             <div class="tm_invoice_info_right">
@@ -147,7 +148,7 @@
               <div class="tm_right_footer">
                 <div class="tm_sign tm_text_center">
                   <img src="/admin/assets/img/sign.svg" alt="Sign">
-                  <p class="tm_m0 tm_ternary_color">Jhon Donate</p>
+                  <p class="tm_m0 tm_ternary_color">Ajmaldevala</p>
                   <p class="tm_m0 tm_f16 tm_primary_color">Accounts Manager</p>
                 </div>
               </div>

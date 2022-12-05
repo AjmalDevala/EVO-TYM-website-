@@ -210,17 +210,34 @@ module.exports = {
     // },
 
     //=============================================================================//
-    //showCategory user side all product
+    //                 ShowCategory user side all product
 
     showCategory: async (req, res) => {
-
+       try {
+        const cate = req.query.category
+        const page = parseInt(req.query.page) || 1;
+        const items_per_page = 6;
+        const totalproducts = await productModel.find({}).countDocuments()
         const category = await categoryModel.find({ status: "active" })
-        const products = await productModel.find({ status: "list" }).populate('category')
-        res.render("user/allProduct", {
+        let products;
+        if(cate){
+         products = await productModel.find({ status: "list",category: cate }).populate('category').skip((page - 1) * items_per_page).limit(items_per_page)
+        }else{
+         products = await productModel.find({ status: "list" }).populate('category').skip((page - 1) * items_per_page).limit(items_per_page)
+        }
+        res.render("user/allProduct", {index: 1, page,
+            hasNextPage: items_per_page * page < totalproducts,
+            hasPreviousPage: page > 1,
+            PreviousPage: page - 1,totalproducts,
             products, category, login: true,
             user: req.session.user
         })
-    },
+    }catch{
+        res.json("something wrong please try again")
+
+    }
+
+},
 
     singleProductPage: async (req, res) => {
 
@@ -318,6 +335,14 @@ module.exports = {
         await saveUserEdits.save().then(() => {
             res.redirect("/profilePage");
         });
+    },
+
+    contact : async(req,res)=>{
+        let userData = req.session.user;
+        let userId = userData._id;
+        let user = await userModel.findOne({ _id: userId });
+
+        res.render("user/contact",{login: true, user})
     },
 
 

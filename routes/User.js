@@ -13,6 +13,7 @@ router.get("/",controller.homeView);
 router.get("/login_page",controller.loginView);
 router.get("/signup_page", controller.signupView);
 router.get("/logout",controller.logOut)
+router.get("/contact",controller.contact)
 router.get('/showCategory',controller.userSession,controller.showCategory);
 router.get('/singleProduct/:id',controller.userSession,controller.singleProductPage)
 router.get('/wishList',controller.userSession,wlcontroller.wishlist)
