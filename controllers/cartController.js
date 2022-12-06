@@ -4,7 +4,10 @@ const productModel = require('../models/productModel');
 
 module.exports = {
 
+   //===============================================================================================================
+  // add to cart using ajax
    addToCart: async (req, res) => {
+      try{
       let productId = req.params.id;
       let userData = req.session.user;
       let userId = userData._id;
@@ -50,11 +53,16 @@ module.exports = {
                res.json({status:true})
             });
       }
+   }catch{
+      res.render("error")
+   }
    },
 
-
+//===============================================================================================================
+// cart render page 
 
    cart: async (req, res) => {
+      try{
       let userData = req.session.user;
       let userId = userData._id;
       let cartlist = await cartModel.findOne({ userId }).populate("products.productId").sort({ date: -1 });
@@ -76,10 +84,16 @@ module.exports = {
             login: false
          });
       }
+   }catch{
+      res.render("error")
+   }
 
    },
+//===============================================================================================================
+// delete cart 
 
    removeCart: async (req, res) => {
+      try{
       let userData = req.session.user;
       let userId = userData._id;
       let id = req.params.id;
@@ -94,12 +108,15 @@ module.exports = {
             res.redirect("/cartPage");
          });
 
-
+      }catch{
+         res.render('error')
+      }
 
    },
-
-
+//===============================================================================================================
+// increment quantity  cart add new product
    incQuantity: async (req, res) => {
+      try{
       let userData = req.session.user;
       const userId = userData._id;
       const productId = req.params.id
@@ -107,17 +124,27 @@ module.exports = {
       await cartModel.findOneAndUpdate({ userId: mongoose.Types.ObjectId(userId), "products._id": mongoose.Types.ObjectId(productId) }, { $inc: { "products.$.quantity": 1, "products.$.total": price, cartTotal: price } })
 
       res.redirect('/cartpage')
+      }catch{
+         res.render("error")
+      }
    },
+   //===============================================================================================================
+   // decrement quantity  or delete  product 
    decQuantity: async (req, res) => {
+      try{
       let userData = req.session.user;
       const userId = userData._id;
       const productId = req.params.id
       const price = req.params.price
       await cartModel.findOneAndUpdate({ userId: mongoose.Types.ObjectId(userId), "products._id": mongoose.Types.ObjectId(productId) }, { $inc: { "products.$.quantity": -1, "products.$.total": -price, cartTotal: -price } })
       res.redirect('/cartpage')
+      }catch{
+         res.render("error")
+      }
    }
 
-
+//===============================================================================================================
+//            cart end
 
 
 

@@ -5,31 +5,23 @@ const moment = require("moment");
 
 
 module.exports = {
+//===============================================================================================================
+// admin order management
 
-    // admin order management
     orderManagement :async (req , res) => {
+      try{
         let user = await userModel.find()
         const orders =  await orderModel.find().sort({date:-1}).populate('products.productId').populate('userId')
-        res.render('admin/orderManagement' ,{orders,user,moment})      
+        res.render('admin/orderManagement' ,{orders,user,moment})
+      }catch{
+        res.render("error")
+      }      
       },
 
-
-    editOrderStatuus: async (req, res) => {
-      
-        const productId = req.body.proId;
-        const orderId = req.body.orderId;
-        const status = req.body.status;
-        console.log(productId + "////" + orderId + "////" + status);  
-        await orderModel.updateOne(
-          { _id: orderId, "products._id": productId },
-          { $set: { "products.$.orderStatus": status } }
-        ).then(() =>{
-        res.json({statusChanged: true})
-        })
-      },
-
-
+//===============================================================================================================
+// admin edit order status 
       editOrderStatus: async (req, res) => {
+        try{
         const {orderId,proId,status } = req.body;
         console.log(req.body);
         console.log(status);
@@ -69,20 +61,29 @@ module.exports = {
         // }
         res.json({ success: "success" });
         // res.json({status:true})
+      }catch{
+        res.render("error")
+      }
 
       },
-    
+//===============================================================================================================
+// ADMIN downlode   invice
       invoice : async(req , res) => {
+        try{
         const productId = req.params.orderId
         const orderId = req.params.productId
         const orders =  await orderModel.findOne({_id : orderId }).populate('products.productId').populate('address').populate('userId')            
         res.render('admin/invoice',{orders, moment })
+        }catch{
+          res.render("error")
+        }
       },
 
-
-    // user side order management
+//===============================================================================================================
+// user side order management
 
       userOrderPage : async (req , res ) => {
+        try{
         let userData = req.session.user;
         let userId = userData._id;
         let user = await userModel.findOne({ _id: userId });
@@ -94,10 +95,16 @@ module.exports = {
         } else {
           res.render("user/userOrderPage", { order, login: false });
         }
+      }catch{
+        res.render("error")
+      }
     
       },
 
+//===============================================================================================================
+// user order cancel
       orderCancel : async (req,res) => {
+        try{
         const productid = req.params.prodId;
         const orderId = req.params.orderId;      
         await orderModel.updateOne({_id:orderId,"products._id":productid},{$set:{"products.$.orderStatus":"Cancelled"}})
@@ -106,32 +113,28 @@ module.exports = {
         }).catch((err)=>{
             console.log(err+"errrrrr");
         })
+      }catch{
+        res.render("error")
+      }
 
       }, 
 
+//===============================================================================================================
+// invoice
 
 
+userInvoice : async(req,res)=>{
+  try{
+  const orderId = req.params.orderId
+  const productId = req.params.productId
+  const orders =await orderModel.findOne({_id : orderId })
+  .populate('products.productId').populate('address').populate('userId')    
+  res.render("user/userInvoice", {moment,orders})
 
-
-
-
-
-
-
-
-      
-      cancelOrder:async(req,res)=>{
-        let productId= req.body.productId
-        console.log("sidhiufasiugiudg"+productId);
-        console.log(req.body.status);
-        let response = await orderSchema.findOneAndUpdate(
-          { _id: req.body['id'] , "products.productId":productId },
-          { $set: { orderStatus: "Cancelled" } }
-        );
-        console.log(response);
-        res.json({status:true})
-      }
-
+}catch{
+  res.render("error")
+}
+}
 
 
 

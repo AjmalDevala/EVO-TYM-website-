@@ -1,0 +1,89 @@
+
+  <%- include ('adminHeader-layout.ejs')%>
+
+  <div class="card mt-2 mx-4 col-sm-9 ">
+    <h5 class="card-header">All Coupon</h5>
+    <div class="table-responsive text-nowrap">
+      <table class="table table-dark ">
+        <thead>
+          <tr>
+            <th scope="col">Name</th>
+            <th scope="col">Code</th>
+            <th scope="col">Discount</th>
+            <th scope="col">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          
+            <tr>
+              <th scope="row"><%=  %> 
+              </th>
+              <td><%=  %> 
+              </td>
+              <td><%=  %> 
+              </td>
+              <td> <a class="btn btn-danger" href="/admin/deleteBanner/<%= %> ">REMOVE</a>
+              </td>
+            </tr>
+        </tbody>
+      </table>
+
+
+
+<!-- show coupon -->
+  <div class="card mb-5 m-auto mt-5" style="height: 350px; width: 700px">
+    <div class="card-body">
+      
+      <form
+        action="/admin/coupon"
+        method="post"
+        
+        
+      >
+      
+      <div class="mb-3">
+        <label class="form-label" for="basic-default-company"
+          >Name</label
+        >
+        <input
+          type="text"
+          class="form-control"
+          name="name"
+          id="basic-default-company"
+          required
+        />
+      </div>
+        <div class="mb-3">
+          <label class="form-label" for="basic-default-company"
+            >Code</label
+          >
+          <input
+            type="text"
+            class="form-control"
+            name="code"
+            id="basic-default-company"
+            required
+          />
+        </div>
+        <div class="mb-3">
+            <label class="form-label" for="basic-default-company"
+              >Discount</label
+            >
+            <input
+              type="number"
+              class="form-control"
+              name="discount"
+              id="basic-default-company"
+              required
+            />
+          </div>
+        </div>
+
+        <div class="mb-6 mx-4">
+          <button type="submit" class="btn btn-primary">Send</button>
+        </div>
+      </form>
+      
+    </div>
+  </div>
+</html>

@@ -3,6 +3,7 @@ const express = require ("express")
 const controller = require("../controllers/adminController");
 const bannerController=require("../controllers/bannerController")
 const orderController=require("../controllers/orderController")
+const checkOutcontroller=require("../controllers/checkOutController")
 const { collection } = require("../models/adminModel");
 const router = express.Router();
 
@@ -11,16 +12,17 @@ const router = express.Router();
 // Admin view  Get routers 
 router.get("/", controller.loginView);
 router.get("/home",controller.adminSession,controller.homeView);
-router.get("/allUser",controller.allUserVIew);
-router.get ('/categoriesPage',controller.categoriesPage)
-router.get('/logOut',controller.logOut)
-router.get('/addProductPage',controller.addProductPage)
-router.get('/allProductPage',controller.allProductPage)
-router.get('/bannerPage',bannerController.bannerPage)
-router.get('/deleteBanner/:id',bannerController.deleteBanner)
+router.get("/allUser",controller.adminSession,controller.allUserVIew);
+router.get ('/categoriesPage',controller.adminSession,controller.categoriesPage)
+router.get('/logOut',controller.adminSession,controller.logOut)
+router.get('/addProductPage',controller.adminSession,controller.addProductPage)
+router.get('/allProductPage',controller.adminSession,controller.allProductPage)
+router.get('/bannerPage',controller.adminSession,bannerController.bannerPage)
+router.get('/deleteBanner/:id',controller.adminSession,bannerController.deleteBanner)
 router.get('/orderManagement',controller.adminSession,orderController.orderManagement)
 router.get('/invoicePage/:orderId/:productId',controller.adminSession,orderController.invoice)
 
+router.get('/coupon',checkOutcontroller.coupon)
 //..............................................................
 //Admin post routers
 router.post ('/login',controller.login)

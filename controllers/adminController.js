@@ -11,6 +11,8 @@ module.exports = {
     //=============================================================================================
     //For view admin Page
     homeView: (req, res) => {
+
+        
         res.render("admin/home", {
         });
     },
@@ -51,9 +53,12 @@ module.exports = {
     // ============================================================================================ 
     // view all user   
     allUserVIew: async (req, res) => {
+        try{
         let users = await userModel.find()
         res.render("admin/allUser", { users, index: 1 })
-
+        }catch{
+            res.render(error)
+        }
     },
     //............................................................................................
     //block user
@@ -194,7 +199,6 @@ module.exports = {
     },
 
 
-    // await productModel.find({brand: "aple"})
 
 
 

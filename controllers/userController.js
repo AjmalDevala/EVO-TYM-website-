@@ -10,7 +10,8 @@ const bannerModel = require('../models/bannerModel');
 
 
 //**************************************** OTP **********************************************************************/
-
+//===============================================================================================================
+// otp check temp storage using  name emain phone password
 var Name;
 var Email;
 var Phone;
@@ -36,8 +37,8 @@ otp = parseInt(otp);
 console.log(otp);
 module.exports = {
 
-    // ......................................................................
-    // user home
+//===============================================================================================================
+// user home
     homeView: async (req, res) => {
 
         const banner = await bannerModel.find()
@@ -113,7 +114,10 @@ module.exports = {
             res.redirect('/login_page')
         }
     },
+    //===============================================================================================================
+    //resend otp
     resendotp: (req, res) => {
+        try{
         var mailOptions = {
             to: email,
             subject: "Otp for registration is: ",
@@ -128,9 +132,14 @@ module.exports = {
             console.log('Preview URL: %s', nodemailer.getTestMessageUrl(info));
             res.render('otp', { msg: "otp has been sent" });
         });
+    }catch{
+        res.render("error")
+    }
     },
-
+//=====================================================================================================
+//verify otp 
     verifyotp: (req, res) => {
+        try{
         if (req.body.otp == otp) {
             const newUser = userModel({
                 name: Name,
@@ -158,6 +167,9 @@ module.exports = {
         else {
             res.render('user/otp', { msg: 'otp is incorrect' });
         }
+    }catch{
+        res.render("error")
+    }
     },
     //================================OTP===========================================================//
     //   ...........................................................................................//
@@ -233,23 +245,34 @@ module.exports = {
             user: req.session.user
         })
     }catch{
-        res.json("something wrong please try again")
+        res.render("error")
 
     }
 
 },
+//===============================================================================================================
+// single product
+
 
     singleProductPage: async (req, res) => {
 
+        try{
         prodId = req.params.id;
         const pro = await productModel.findById({ _id: prodId }).populate('category')
         res.render("user/singleProduct", {
             pro, login: true,
             user: req.session.user,
         })
+    }catch{
+        res.render("error")
+    }
     },
+    
+    //===============================================================================================================
+    // profilePage
 
     profilePage: async (req, res) => {
+        try{
         let userData = req.session.user;
         let userId = userData._id;
         let user = await userModel.findOne({ _id: userId });
@@ -265,10 +288,16 @@ module.exports = {
             add = [];
         }
         res.render("user/profilePage", { user, login: true, add });
+    }catch{
+
+    }
 
     },
+    //===============================================================================================================
+    // address page
 
     addressPage: async (req, res) => {
+        try{
         let userData = req.session.user;
         let userId = userData._id;
         let user = await userModel.findOne({ _id: userId });
@@ -279,9 +308,15 @@ module.exports = {
             allAddress = []
         }
         res.render("user/addressPage", { login: true, allAddress, user });
+    }catch{
+        res.render("error")
+    }
     },
+    //===============================================================================================================
+    // new address
 
     newAddress: async (req, res) => {
+        try{
         const { fullName, address, city, state, pincode, phone } = req.body;
         let userData = req.session.user;
         let userId = userData._id;
@@ -307,9 +342,15 @@ module.exports = {
                     res.redirect("/profilePage");
                 });
         }
+    }catch{
+        res.render("error")
+    }
 
     },
+    //===============================================================================================================
+    // delete address
     deleteaddress: async (req, res) => {
+        try{
         let id = req.params.id
         let userData = req.session.user;
         let userId = userData._id;
@@ -317,9 +358,15 @@ module.exports = {
             .then(() => {
                 res.redirect("/addressPage")
             })
+        }catch{
+            res.render("error")
+        }
     },
+    //===============================================================================================================
+    // edit profile
 
     editProfile: async (req, res) => {
+        try{
         const userId = req.params.id;
         const { name, email, phone } = req.body;
         const saveUserEdits = await userModel.findOneAndUpdate(
@@ -335,18 +382,29 @@ module.exports = {
         await saveUserEdits.save().then(() => {
             res.redirect("/profilePage");
         });
+    }catch{
+        res.render("error")
+    }
     },
+    //===============================================================================================================
+    // contact
 
     contact : async(req,res)=>{
+        try{
         let userData = req.session.user;
         let userId = userData._id;
         let user = await userModel.findOne({ _id: userId });
 
         res.render("user/contact",{login: true, user})
+        }catch{
+            res.render("error")
+        }
     },
 
 
 
+//===============================================================================================================
+// invoice
 
 
 

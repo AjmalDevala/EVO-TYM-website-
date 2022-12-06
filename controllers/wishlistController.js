@@ -5,6 +5,7 @@ module.exports = {
 
     //============================WISHLISTGET====================================//
     wishlist: (req, res) => {
+        try{
         let user = req.session.user;
         let userId = user._id;
         return new Promise(async (resolve, reject) => {
@@ -19,10 +20,14 @@ module.exports = {
         }).then((list) => {
             res.render('user/wishList', { login: true, user: req.session.user, list});
         })
+    }catch{
+        res.render("error")
+    }
 
     },
     //===================================ADD TO WISHLIST===============================//
     addToWishList: async (req, res) => {
+        try{
         let productId = req.params.id
         let user = req.session.user;
         let user_id = user._id;
@@ -46,12 +51,16 @@ module.exports = {
                 // res.redirect("/wishList")
             });
         }
+    }catch{
+        res.render("error")
+    }
 
     },
 
     //==================================REMOVE=====================================//
 
     removeWishlistProduct: async (req, res) => {
+        try{
         const id = req.params.id;
         let user = req.session.user;
         let userId = user._id;
@@ -59,6 +68,9 @@ module.exports = {
             .then(() => {
                 res.redirect("/wishList")
             })
+        }catch{
+            res.render("error")
+        }
     },
 
 

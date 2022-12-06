@@ -31,7 +31,7 @@
   <div class="container">
     <p>
       <a
-        class="primary-btn"
+        class="btn btn-outline-info"
         data-toggle="collapse"
         href="#collapseExample"
         role="button"
@@ -41,8 +41,8 @@
         Select delivery Address
       </a>
     </p>
-    <div class="collapse" id="collapseExample">
-      <div class="card card-body">
+    <div class="collapse " class="col-sm-6 mb-3"id="collapseExample">
+      <div class="card card-body" >
         <form action="/changeAddress" method="post">
           <option value="select">Address Here</option>
           <select name="addressIndex" id="addressIndex">
@@ -58,6 +58,7 @@
         </form>
       </div>
     </div>
+    
 
     <div class="billing_details">
       <div class="row">
@@ -219,10 +220,20 @@
               </div>
             </div>
           </div>
+          
         </div>
 
         <!-- <-==================- order_box ===========================-->
         <div class="col-lg-4">
+
+          <div class="cupon_area">
+            <div class="check_title">
+                <h2>Have a coupon? <a href="#">Click here to enter your code</a></h2>
+            </div>
+            <input type="text" placeholder="Enter coupon code">
+            <a class="tp_btn" href="#">Apply Coupon</a>
+        </div>
+
           <div class="order_box">
             <h2>Your Order</h2>
             <%cartProducts.forEach(function(x) {%>
@@ -237,7 +248,7 @@
                 <a href="#">Subtotal <span>₹<%= totalAmount %> </span></a>
               </li>
               <li>
-                <a href="#">Shipping <span>FREE: ₹0.00</span></a>
+                <a href="#"> Discount <span>coupon: ₹0.00</span></a>
               </li>
               <li>
                 <a href="#">Total <span>₹<%= totalAmount %></span></a>
@@ -268,9 +279,9 @@
               </label>
             </div>
             <% if(selectedAddess != 0) {%>
-            <button
+            <button style="border: none;"
               onclick="placeOrder('<%=addressIndex%>')"
-              class="btn-success mt-4 flex-c-m stext-101 cl0 size-116 bor14 p-lr-15 trans-04 pointer"
+              class="primary-btn mt-4 flex-c-m stext-101 cl0 size-116 bor14 p-lr-15 trans-04 pointer " 
             >
               Place Order
             </button>

@@ -1,15 +1,16 @@
 const bannerModel = require('../models/bannerModel');
 module.exports = {
 
-
-
+//===============================================================================================================
+// bannner render page
 bannerPage : async(req,res)=>{
     banner = await bannerModel.find({})
     res.render("admin/bannerPage",{banner,index :1})
 },
 
 
-
+//===============================================================================================================
+// new banner
 newBanner: async(req,res)=>{
     const {tittle,text}=req.body
     const image =req.file
@@ -23,7 +24,8 @@ newBanner: async(req,res)=>{
         res.redirect('/admin/bannerPage')
     })
 },
-
+//===============================================================================================================
+// deleteBanner
 deleteBanner : async (req,res)=>{
     let id = req.params.id
     await bannerModel.findByIdAndDelete({_id:id})
@@ -31,16 +33,15 @@ deleteBanner : async (req,res)=>{
         res.redirect("/admin/bannerPage")
     })  
   },
-
-
-
-
+//===============================================================================================================
+// edit banner
   editBannerPage :async(req,res)=>{
     const id =req.params.id
     banner = await bannerModel.findOne({_id:id})
     res.render("admin/editBanner",{banner})
   },
-
+//===============================================================================================================
+// update banner
   updatebanner: async(req, res)=>{
     if(req.file){
         let image =req.file
@@ -51,7 +52,8 @@ deleteBanner : async (req,res)=>{
 
   },
 
-
+//===============================================================================================================
+                                      //end
 
 
 }

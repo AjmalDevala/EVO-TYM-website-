@@ -3,57 +3,6 @@
 
         <div class="main" style="margin-top: 180px">
             <div class="content-wrapper d-flex justify-content-center">
-                <!-- <div class="col-lg-9 grid-margin stretch-card">
-                    <div class="card ">
-                        <div class="card ">
-                            <h4 class="card-title">MY ORDER</h4>
-                            <table class="table">
-                                <thead>
-                                    <tr>
-                                        <th>Product</th>
-                                        <th>Product Name</th>
-                                        <th>ORDERDATE</th>
-                                        <th>Quantuty</th>
-                                        <th>Price</th>
-                                        <th>Order Status</th>
-                                        <th>Payment</th>
-                                        <th>Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody class="table-border">
-                                 <% order.forEach(function(product){ %>    
-                                    <% product.products.forEach(function(x){ %>
-                                    <tr>
-                                        <td><img src="/admin/evoimg/<%= x.productId.image %>" alt="" style="height: 60px; width:60px ;"></td>
-                                        <td><%= x.productId.name %></td>
-                                        <td ><%=moment(x.productId.date).format("LL") %></td>
-                                        <td><%= x.quantity %></td>
-                                        <td><strong><%= x.total %></strong></td>
-                                        <td><%= x.orderStatus %> </td>
-                                        <td><%= product.payment_method  %> </td>
-                                            
-                                             <% if(x.orderStatus =="Delivered") {%> 
-                                             <td><button class="btn btn-danger" onclick="Delivered()">CANCEL</button></td>
-                                             
-                                             <% }else if(x.orderStatus =="Cancelled") {%> 
-                                            <td><button class="btn btn-danger" onclick="Cancelled()">CANCEL</button></td>
-                                            <% }else{ %> 
-
-                                            <td><a href="/orderCancel/<%= product._id %>/<%= x._id %>">
-                                                <button class="btn btn-danger">CANCEL</button></a>
-                                            </td>
-                                            <% } %> 
-                                    </tr>
-                                    <% }) %>
-                                    <% }) %>
-                                   
-                                    
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>  -->
-
                 <section class="container">
                     <div class="container my-5">
                         <div class="row" id="orderCard">
@@ -77,7 +26,7 @@
                                                     </strong><br />
                                                     <strong class="card-text">Total : <%= product.total %>
                                                     </strong>
-                                                    <p class="card-text">PAYMENT: <%= order.payment_method  %>
+                                                    <p class="card-text">PAYMENT: <%= order.payment_method %>
                                                     </p>
                                                     <% if(order.orderStatus !='OrderPlaced' ){ %>
                                                         <p class="card-text">
@@ -122,13 +71,14 @@
 
                                             <div class="col-md-1 d-flex align-items-center justify-content-center-2">
                                                 <% if(product.orderStatus=="Delivered" ) {%>
-                                                    <a href="#"><button
-                                                            class="btn btn-outline-info m-2" onclick="Delivered()">
+                                                    <a href="#"><button class="btn btn-outline-info m-2"
+                                                            onclick="Delivered()">
                                                             Cancel
-                                                        </button></a>
+                                                            </button></a>
+                                                    <div><a href="/userInvoice/<%= order._id %>/<%= product._id %>"><button class="btn btn-outline-success m-2">bill</button></a></div> 
                                                     <% }else if (product.orderStatus=="Cancelled" ){ %>
-                                                        <a href="#"><button
-                                                                class="btn btn-outline-info m-2 " onclick="Cancelled()">
+                                                        <a href="#"><button class="btn btn-outline-info m-2 "
+                                                                onclick="Cancelled()">
                                                                 Cancel
                                                             </button></a>
                                                         <%} else{%>
@@ -138,36 +88,38 @@
                                                                 </button></a>
                                                             <% }%>
 
-
-                                            </div>
+                                                            
+                                                            
+                                                            </div>
                                         </div>
 
-                                        <div class="  active progress ">
+                                        <div class="  active progress  " style="margin-bottom: 14px;">
 
                                             <% if(product.orderStatus=="Packed" ){ %>
 
-                                            <div class="progress-bar-striped bg-success" style="width:30%">
-                                                packed
-                                            </div>
-                                            <%}else if(product.orderStatus=="Shipped")   {%>
-                                                <div class="progress-bar-striped bg-info" style="width:60%">
-                                                shipped
-                                            </div>
+                                                <div class="progress-bar-striped bg-success" style="width:30%">
+                                                    packed
+                                                </div>
+                                                <%}else if(product.orderStatus=="Shipped" ) {%>
+                                                    <div class="progress-bar-striped bg-info" style="width:60%">
+                                                        shipped
+                                                    </div>
 
-                                            <%}else if(product.orderStatus=="Delivered")   {%>
-                                                <div class="progress-bar bg-success" style="width:1000%">
-                                                    Delivered
-                                            </div>
-                                            <%}else if(product.orderStatus=="Cancelled")   {%>
-                                                <div class="progress-bar bg-danger" style="width:100%">
-                                                    Cancelled
-                                            </div>
-                                                <%}else{%>
-                                                    <div class="progress-bar-striped bg-warning" style="width:10%">
-                                                waiting
-                                            </div>
-                                            
-                                                    <% } %>
+                                                    <%}else if(product.orderStatus=="Delivered" ) {%>
+                                                        <div class="progress-bar bg-success" style="width:1000%">
+                                                            Delivered
+                                                        </div>
+                                                        <%}else if(product.orderStatus=="Cancelled" ) {%>
+                                                            <div class="progress-bar bg-danger" style="width:100%">
+                                                                Cancelled
+                                                            </div>
+                                                            <%}else{%>
+                                                                <div class="progress-bar-striped bg-warning"
+                                                                    style="width:10%">
+                                                                    waiting
+                                                                </div>
+
+                                                                <% } %>
                                         </div>
                                     </div>
 
@@ -175,35 +127,35 @@
                                         <% }) %>
                         </div>
                     </div>
-            
-            </section>
-        </div>
+
+                </section>
+            </div>
 
 
-        <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+            <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-        <script>
-            function Delivered() {
-                Swal.fire({
-                    icon: "error",
-                    title: "PRODUCT Delivered",
-                    text: " oops...",
-                });
-            }
+            <script>
+                function Delivered() {
+                    Swal.fire({
+                        icon: "error",
+                        title: "PRODUCT Delivered",
+                        text: " oops...",
+                    });
+                }
 
-            function Cancelled() {
-                Swal.fire({
-                    icon: "error",
-                    title: "oops...",
-                    text: "order has been Cancelled!",
-                });
-            }
-            function Cancel() {
-                Swal.fire({
-                    icon: "error",
-                    title: "oops...",
-                    text: "order  Cancelled!",
-                });
-            }
-        </script>
-        <%- include('footer-layout.ejs') %>
+                function Cancelled() {
+                    Swal.fire({
+                        icon: "error",
+                        title: "oops...",
+                        text: "order has been Cancelled!",
+                    });
+                }
+                function Cancel() {
+                    Swal.fire({
+                        icon: "error",
+                        title: "oops...",
+                        text: "order  Cancelled!",
+                    });
+                }
+            </script>
+            <%- include('footer-layout.ejs') %>
