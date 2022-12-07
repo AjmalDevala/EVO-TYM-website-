@@ -24,7 +24,8 @@
 
 <% if(address.length == 0){ %>
 <div class="col-12 text-center">
-  <h1>NO ADDRESS ADD OR GO PROFILE</h1>
+  <h1>NO ADDRESS create New Delivery Address</h1>
+  <img src="https://nofixedaddress.in/wp-content/uploads/2019/02/nofixedaddress_12-01.png " style="width: 200px;"  alt="">
 </div>
 <% }else{ %>
 <section class="checkout_area section_gap">
@@ -115,7 +116,7 @@
               </ul>
             </div>
             <% } %>
-            <p>
+            <p class="d-flex justify-content-center">
               <a
                 class="btn btn-success"
                 data-toggle="collapse"
@@ -222,18 +223,18 @@
           </div>
           
         </div>
-
+        
         <!-- <-==================- order_box ===========================-->
         <div class="col-lg-4">
-
+          
           <div class="cupon_area">
             <div class="check_title">
                 <h2>Have a coupon? <a href="#">Click here to enter your code</a></h2>
             </div>
             <input type="text" placeholder="Enter coupon code">
             <a class="tp_btn" href="#">Apply Coupon</a>
-        </div>
-
+          </div>
+          
           <div class="order_box">
             <h2>Your Order</h2>
             <%cartProducts.forEach(function(x) {%>

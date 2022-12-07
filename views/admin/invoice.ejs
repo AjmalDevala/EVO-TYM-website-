@@ -9,7 +9,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="author" content="Laralink">
   <!-- Site Title -->
-  <title>General Purpose Invoice-4</title>
+  <link rel="icon" href="/user/img/fav.png">
+  <title>EVO-TYM</title>
   <link rel="stylesheet" href="/admin/assets/css/style.css">
 </head>
 
@@ -54,7 +55,7 @@
             <div class="tm_invoice_info_left">
               <p class="tm_mb2"><b>Invoice To:<%= orders._id%></b></p>
               <p>
-                <b class="tm_f16 tm_primary_color"><%= orders.userId.name  %>  </b><br>
+                <b class="tm_f16 tm_primary_color"><%= orders.address.fullName  %> </b><br>
                 <%= orders.address.address  %>
                 , <%= orders.address.city  %> <br> <%= orders.address.state %> <br>
                 <%= orders.userId.email  %><br>
