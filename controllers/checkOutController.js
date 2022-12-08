@@ -5,6 +5,7 @@ const orderModel = require('../models/orderModel');
 const cartModel = require('../models/cartModel');
 const Razorpay = require("razorpay");
 const { constants } = require('buffer');
+const couponModel = require('../models/couponModel');
 
 
 //===============================================================================================================
@@ -22,13 +23,18 @@ module.exports = {
     try {
       let userData = req.session.user;
       let userId = userData._id;
+      let coupon = await couponModel.find({});
       let user = await userModel.findOne({ _id: userId });
       let address1 = await addressModel.findOne({ userId: userId })
       let list = await cartModel.findOne({ userId: userId }).populate("products.productId")
         .sort({ date: -1 });
+      let discount = 0
+      if(coupon != undefined){
+       discount = list.offer.discount
+      }
       let totalAmount = 0
       if (list != undefined) {
-        totalAmount = list.cartTotal;
+        totalAmount = list.cartTotal; 
       }
       let cartProducts = []
       if (list != null) {
@@ -44,7 +50,7 @@ module.exports = {
         selectedAddess = req.body.addressIndex ? address[req.body.addressIndex] : address1.address = []
       }
       if (req.session.userlogin) {
-        res.render("user/checkOutPage", { totalAmount, user, cartProducts, address, selectedAddess, addressIndex, login: true });
+        res.render("user/checkOutPage", { totalAmount, user, cartProducts, address,discount, selectedAddess, addressIndex,coupon, login: true });
       } else {
         res.render("user/checkOutPage", { totalAmount, user, cartProducts, address, login: false });
       }
@@ -62,7 +68,6 @@ module.exports = {
       let userId = userData._id;
       let adrsIndex = req.body["index"];
       let payment_method = req.body["paymentMethod"];
-      console.log(req.body);
       let addresses = await addressModel.findOne({ userId });
       let address = addresses.address[adrsIndex];
       let cart = await cartModel.findOne({ userId });
@@ -208,37 +213,61 @@ module.exports = {
 
 deleteCoupon: async (req, res) => {
   const id = req.params.id;
-  await couponSchema.findByIdAndDelete({ _id: id }).then(() => {
-    res.redirect("/admin/showCoupon");
+  await couponModel.findByIdAndDelete({ _id: id }).then(() => {
+    res.redirect("/admin/coupon");
   });
 },
 
 updateCoupon: async (req, res) => {
-  const id = req.params.id;
-  const { name , code , discount } = req.body;
 
-  const coupon = await couponSchema.findByIdAndUpdate(
-    { _id: id },
-    {
-      $set: {
-        name,
-        code,
-        discount
-
-        
-      },
-    }
-  );
-  coupon.save().then(() => {
-    res.redirect("/admin/showCoupon");
+  const coupons = req.body;
+ 
+  await couponModel(coupons).save().then(() => {
+    res.redirect("/admin/coupon");
   });
 },
 
-coupon: (req, res) => {
-  // let couponId = req.params.id;
-  // let coupon = await couponSchema.findById({ _id: couponId });
-  res.render("admin/coupon");
-}
+coupon:async (req, res) => {
+  let coupon = await couponModel.find({});
+  res.render("admin/coupon",{coupon,index:1});
+}, 
+
+
+checkCoupen: async (req, res) => {
+    try {   
+      let userData = req.session.user;
+      let userId = userData._id;
+      const couponCode = req.body.code;
+      const cartTotal = req.body.cartTotal;
+      const confirmCode = await couponModel.findOne({ code: couponCode });
+      console.log(confirmCode);
+      if (confirmCode) {
+        const existOffer = await cartModel.findOne({userId:userId})
+        if (!existOffer.offer.couponId){
+        discountCoupen = Math.round(cartTotal * confirmCode.discount/ 100) 
+        console.log(discountCoupen);
+        const cart = await cartModel.findOneAndUpdate(
+          { userId: userId },
+          {
+            $set: {
+              offer:{couponId: confirmCode._id, 
+              discount : discountCoupen},
+          
+            },
+            $inc: { cartTotal: -discountCoupen },
+          },{multi : true}
+        );
+        res.json({apply:true});
+        }else{
+          res.json({exist : true})
+        }
+      }else{
+        res.json({apply : false})
+      }
+    } catch {
+      console.log("catch working");
+    }
+  },
 
 
 

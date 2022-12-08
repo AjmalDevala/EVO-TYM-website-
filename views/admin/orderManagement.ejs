@@ -1,129 +1,136 @@
-<%- include('adminHeader-layout.ejs') %> 
+<%- include('adminHeader-layout.ejs') %>
 
-      <div class="card-body">
-        <h4 class="card-title">ORDER MANAGEMENT </h4>
-        <table class="table">
-          <thead>
+  <div class="card-body">
+    <h4 class="card-title">ORDER MANAGEMENT </h4>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>userName</th>
+          <th>Product</th>
+          <th>Product Name</th>
+          <th>Order date</th>
+          <th>Quantuty</th>
+          <th>Price</th>
+          <th>Order status</th>
+          <th>Payment</th>
+          <th>More</th>
+        </tr>
+      </thead>
+      <hr>
+      <tbody class="table-border-bottom-1">
+        <% orders.forEach(function(product){ %>
+          <% product.products.forEach(function(x){ %>
             <tr>
-                <th>userName</th>
-                <th>Product</th>
-                <th>Product Name</th>
-                <th>Order date</th>
-                <th>Quantuty</th>
-                <th>Price</th>
-                <th>Order status</th>
-                <th>Payment</th>
-                <th>More</th>
-            </tr>
-        </thead>
-        <tbody class="table-border-bottom-0">
-         <% orders.forEach(function(product){ %>    
-            <% product.products.forEach(function(x){ %>
-            <tr>
-                <td><%= product.userId.name %> </td>
-                <td><img src="/admin/evoimg/<%= x.productId.image %>" alt="" style="height: 60px; width:60px ;"></td>
-                <td><%= x.productId.name %></td>
-                <td style="width: 34px; font-size:11px;" ><%= moment(x.productId.date).format("LL") %></td>
-                <td><%= x.quantity %></td>
-                <td><strong><%= x.total %></strong></td>
-                <td >
-                        <% if(x.orderStatus=='OrderPlaced'){ %>
-                        <button  onclick="edit_order_status('<%= product._id %>','<%= x._id %>','OrderPlaced')"
-                          class="btn btn-outline-dark btn-sm"
-                          style="width: 165px"
-                          type="button"
-                          aria-expanded="false"
-                        >
+              <td>
+                <%= product.userId.name %>
+              </td>
+              <td><img src="/admin/evoimg/<%= x.productId.image %>" alt="" style="height: 60px; width:60px ;"></td>
+              <td>
+                <%= x.productId.name %>
+              </td>
+              <td style="width: 34px; font-size:11px;">
+                <%= moment(x.productId.date).format("LL") %>
+              </td>
+              <td>
+                <%= x.quantity %>
+              </td>
+              <td><strong>
+                  <%= x.total %>
+                </strong></td>
+              <td>
+                <% if(x.orderStatus=='OrderPlaced' ){ %>
+                  <button onclick="edit_order_status('<%= product._id %>','<%= x._id %>','OrderPlaced')"
+                    class="btn btn-outline-dark btn-sm" style="width: 165px" type="button" aria-expanded="false">
+                    <%= x.orderStatus %>
+                  </button>
+                  <%} else if(x.orderStatus=='Packed' ){ %>
+                    <button onclick="edit_order_status('<%= product._id %>','<%= x._id %>','Packed')"
+                      class="btn btn-outline-dark btn-sm" style="width: 165px" type="button" aria-expanded="false">
+                      <%= x.orderStatus %>
+                    </button>
+                    <% } else if(x.orderStatus=='Shipped' ){ %>
+                      <button onclick="edit_order_status('<%= product._id %>','<%= x._id %>','Shipped' )"
+                        class="btn btn-outline-primary btn-sm" style="width: 165px" type="button" aria-expanded="false">
+                        <%= x.orderStatus %>
+                      </button>
+
+                      <% } else if(x.orderStatus=='Delivered' ){ %>
+                        <button onclick="edit_order_status('<%= product._id %>','<%= x._id %>','Delivered')"
+                          class="btn btn-outline-success btn-sm" style="width: 165px" type="button"
+                          aria-expanded="false">
                           <%= x.orderStatus %>
                         </button>
-                        <%} else if(x.orderStatus=='Packed'){ %>
-                        <button  onclick="edit_order_status('<%= product._id %>','<%= x._id %>','Packed')"
-                          class="btn btn-outline-dark btn-sm"
-                          style="width: 165px"
-                          type="button"
-                          aria-expanded="false"
-                        >
-                          <%= x.orderStatus %>
-                        </button>
-                        <% } else if(x.orderStatus=='Shipped'){ %>
-                        <button  onclick="edit_order_status('<%= product._id %>','<%= x._id %>','Shipped' )"
-                          class="btn btn-outline-primary btn-sm"
-                          style="width: 165px"
-                          type="button"
-                          aria-expanded="false"
-                        >
-                          <%= x.orderStatus %>
-                        </button>
-                       
-                        <% } else if(x.orderStatus=='Delivered'){ %>
-                        <button  onclick="edit_order_status('<%= product._id %>','<%= x._id %>','Delivered')"
-                          class="btn btn-outline-success btn-sm"
-                          style="width: 165px"
-                          type="button"
-                          aria-expanded="false"
-                        >
-                          <%= x.orderStatus %>
-                        </button>
-                        <% } else if(x.orderStatus=='Cancelled'){ %>
-                        <button  
-                          class="btn btn-outline-secondary btn-sm disabled"
-                          style="width: 165px"
-                          type="button"
-                          aria-expanded="false"
-                        >
-                          <%= x.orderStatus %>
-                        </button>
-                        <% } %>
+                        <% } else if(x.orderStatus=='Cancelled' ){ %>
+                          <button class="btn btn-outline-secondary btn-sm disabled" style="width: 165px" type="button"
+                            aria-expanded="false">
+                            <%= x.orderStatus %>
+                          </button>
+                          <% } %>
+              </td>
+              <td>
+                <%= product.payment_method %>
+              </td>
+
+              <% if (x.orderStatus=='Cancelled' ) {%>
+                <td>
+                  <h4>No Details</h4>
                 </td>
-                <td><%= product.payment_method  %></td>
+                <% }else {%>
 
-                <% if (x.orderStatus=='Cancelled') {%>
-                  <td><h4>No Details</h4></td>
-                  <% }else {%> 
-                  
-                <td><a href="/admin/invoicePage/<%= x._id %>/<%= product._id %>"><button class="btn btn-outline-info" >Details</Details></button></a></td>
-            <% } %> 
-              </tr>
+                  <td><a href="/admin/invoicePage/<%= x._id %>/<%= product._id %>"><button
+                        class="btn btn-outline-info">Details</Details></button></a></td>
+                  <% } %>
+            </tr>
             <% }) %>
-            <% }) %>
-           
-            
-        </tbody>
-        </table>
-      </div>
-      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.js"></script>
-      <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+              <% }) %>
 
-      <script>
-        function edit_order_status (orderId,proId,status) {
-            $.ajax({
-                url : "/admin/changeOrderStatus",
-                data : {
-                  orderId,
-                    proId,
-                    status  
-                },
-                method : "post",
-                success : (response) => {
-                    if(response.success){
-                        location.href = '/admin/orderManagement'
-                        Swal.fire({                
-                           icon: 'success',
-                           text: 'Status Changed', 
-                           title: 'successfully',
-                           showConfirmButton: false,
-                           timer: 1500
-                            })
-                    }else{
-                        Swal.fire({
-                      icon: "error",
-                      title: "oops...",
-                      text: "Status Not Changed"
-                      })
-                    }
-                }
-            })
+
+      </tbody>
+    </table>
+  </div>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+  <script>
+    function edit_order_status(orderId, proId, status) {
+
+
+      Swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, change it!'
+      }).then((result) => {
+        if (result.isConfirmed) {
+
+          $.ajax({
+            url: "/admin/changeOrderStatus",
+            data: {
+              orderId,
+              proId,
+              status
+            },
+            method: "post",
+            success: (response) => {
+              if (response.success) {
+                location.href = '/admin/orderManagement'
+                Swal.fire(
+            'changed!',
+            'Order  has been Updated.',
+            'success'
+          )
+              }
+            }
+          })
+
         }
-    </script>
-    
- 
+      })
+
+
+
+
+    }
+  </script>

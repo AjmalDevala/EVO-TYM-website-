@@ -32,7 +32,7 @@
   <div class="container">
     <p>
       <a
-        class="btn btn-outline-info"
+        class="genric-btn primary radius"
         data-toggle="collapse"
         href="#collapseExample"
         role="button"
@@ -64,7 +64,7 @@
     <div class="billing_details">
       <div class="row">
         <div class="col-sm-6 mb-3">
-          <div class="card h-100">
+          <div class="card h-90">
             <div class="card-body">
               <h6 class="d-flex align-items-center mb-3">
                 <i class="material-icons text-info mr-2"> delivery Address</i>
@@ -118,7 +118,7 @@
             <% } %>
             <p class="d-flex justify-content-center">
               <a
-                class="btn btn-success"
+                class="genric-btn success radius"
                 data-toggle="collapse"
                 href="#collapseExample1"
                 role="button"
@@ -221,19 +221,20 @@
               </div>
             </div>
           </div>
+          <hr>
+          <div class="cupon_area">
+            <div class="check_title">
+                <h2>Have a coupon? <a href="#">Click here to enter your code</a></h2>
+            </div>
+            <input type="text" placeholder="Enter coupon code" id="codeInput">
+            <a class="tp_btn " onclick="getcoupon('<%= totalAmount %>')">Apply Coupon</a>
+          </div>
           
         </div>
         
         <!-- <-==================- order_box ===========================-->
         <div class="col-lg-4">
           
-          <div class="cupon_area">
-            <div class="check_title">
-                <h2>Have a coupon? <a href="#">Click here to enter your code</a></h2>
-            </div>
-            <input type="text" placeholder="Enter coupon code">
-            <a class="tp_btn" href="#">Apply Coupon</a>
-          </div>
           
           <div class="order_box">
             <h2>Your Order</h2>
@@ -246,10 +247,13 @@
             <% }) %>
             <ul class="list list_2">
               <li>
-                <a href="#">Subtotal <span>₹<%= totalAmount %> </span></a>
+                <a href="#">Subtotal <span>₹<%= totalAmount + discount %> </span></a>
               </li>
               <li>
-                <a href="#"> Discount <span>coupon: ₹0.00</span></a>
+                <a href="#"> Discount <span><%= discount %></span></a>
+              </li>
+              <li>
+                <a href="#"> Delivery <span>free: ₹0.00</span></a>
               </li>
               <li>
                 <a href="#">Total <span>₹<%= totalAmount %></span></a>
@@ -282,14 +286,14 @@
             <% if(selectedAddess != 0) {%>
             <button style="border: none;"
               onclick="placeOrder('<%=addressIndex%>')"
-              class="primary-btn mt-4 flex-c-m stext-101 cl0 size-116 bor14 p-lr-15 trans-04 pointer " 
+              class="genric-btn success radius mt-4 flex-c-m stext-101 cl0 size-116 bor14 p-lr-15 trans-04 pointer " 
             >
               Place Order
             </button>
             <% }else { %>
             <button
               onclick="adressError()"
-              class="btn-success mt-4 flex-c-m stext-101 cl0 size-116 bor14 p-lr-15 trans-04 pointer"
+              class="genric-btn danger radius mt-4 flex-c-m stext-101 cl0 size-116 bor14 p-lr-15 trans-04 pointer"
             >
               Place Order
             </button>
@@ -388,5 +392,47 @@
       text: "Address not added!",
     });
   }
+
+  function getcoupon(cartTotal) {
+        const code = document.querySelector("#codeInput").value;
+        $.ajax({
+          url: "/checkCoupen",
+          data: {
+            cartTotal,
+            code
+          },
+          method: "post",
+          success: (response) => {
+            if (response.apply) {
+              window.location.reload()
+              Swal.fire({
+                icon: "success",
+                title: "Success",
+                text: "coupon applied",
+              });
+            } else if (response.exist) {
+              
+              Swal.fire({
+                icon: "error",
+                title: "Bad luck",
+                text: "coupon already applied",
+              });
+            } else {
+              
+              Swal.fire({
+                icon: "error",
+                title: "Bad luck",
+                text: "coupon not exist",
+              });
+            }
+          },
+        });
+      }
+
+
+
+
+
+
 </script>
 <%-include("footer-layout.ejs") %>

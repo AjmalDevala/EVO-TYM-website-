@@ -10,9 +10,42 @@ module.exports = {
 
     //=============================================================================================
     //For view admin Page
-    homeView: (req, res) => {
+    homeView: async(req, res) => {
 
-        
+        let allProducts = await productModel.find({status:"List"}).countDocuments()
+        let activeUsers = await userModel.find({ status: "Unblocked" }).countDocuments()
+        let liveOrders = await orderModel.find({ orderStatus: { $nin: ["Delivered", "Cancelled"] } }).countDocuments()
+        let newOrders = await orderModel.find().sort({ orderDate: -1 }).limit(8)
+        let newUsers = await userModel.find({ type: "Active" }).sort({ join: -1 }).limit(5)
+
+        let start = new Date();
+        start.setHours(0, 0, 0, 0);
+        let end = new Date();
+        end.setHours(23, 59, 59, 999);
+        let ordersToday = await orderModel.find({orderDate: {$gte: start, $lt: end}}).countDocuments()
+
+        let online = await orderModel.aggregate([
+            { '$match': { paymentMethod: 'ONLINE'} },
+            { '$group': { '_id': null, 'subTotal': { '$sum': '$total' } } }
+        ])
+
+
+        let sales = await orderModel.aggregate([
+            {
+                '$group': {
+                    '_id': null,
+                    'totalCount': {
+                        '$sum': '$total'
+                    }
+                }
+            }
+        ])
+
+      console.log(online);
+      const totalSales = sales.map(a => a.totalCount)
+      const onlinePayments = online.map(a => a.subTotal)
+
+
         res.render("admin/home", {
         });
     },

@@ -10,7 +10,7 @@
 
           <% banner.forEach(function(x){  %> 
           <div class="row single-slide align-items-center d-flex">
-            <div class="col-lg-5 col-md-6">
+            <div class="col-lg-5 col-md-6 col-sm-6">
               <div class="banner-content">
                 <h1><%= x.tittle %> </h1>
                 <p>
@@ -18,7 +18,7 @@
                 </p>
               </div>
             </div>
-            <div class="col-lg-6">
+            <div class="col-lg-6 c">
               <div class="banner-img">
                 <img
                   class="img-fluid"
@@ -207,7 +207,7 @@
         <% firstOne.forEach(function(x){ %> 
         <div class="col-lg-3 col-md-6">
           <div class="single-product">
-            <a href=""><img class="img-fluid" src="/admin/evoimg/<%= x.image %>" alt="" /></a>
+            <a href="/singleProduct/<%= x._id %>"><img class="img-fluid" src="/admin/evoimg/<%= x.image %>" alt="" /></a>
             <div class="product-details " >
               <h6><%=x.name  %> </h6>
               <div class="price">
@@ -250,7 +250,7 @@
         <% lastOne.forEach(function(x){ %> 
         <div class="col-lg-3 col-md-6">
           <div class="single-product">
-            <a href="/singleProduct/<%= x._id %>"><img class="img-fluid" src="/admin/evoimg/<%= x.image %>" alt="" /></a>
+            <a href="/singleProduct/<%= x._id %>"><img class="img-fluid" src="/admin/evoimg/<%= x.image %>" alt="" style="width: 120;" /></a>
             <div class="product-details">
               <h6><%=x.name  %></h6>
               <div class="price">

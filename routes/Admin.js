@@ -23,6 +23,8 @@ router.get('/orderManagement',controller.adminSession,orderController.orderManag
 router.get('/invoicePage/:orderId/:productId',controller.adminSession,orderController.invoice)
 
 router.get('/coupon',checkOutcontroller.coupon)
+router.get('/deleteCoupon/:id',checkOutcontroller.deleteCoupon)
+router.post('/updateCoupon',checkOutcontroller.updateCoupon)
 //..............................................................
 //Admin post routers
 router.post ('/login',controller.login)

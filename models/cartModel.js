@@ -15,7 +15,17 @@ const cartSchema = new mongoose.Schema({
         cartTotal : {
             type: Number,
             default: 0                
-        }
+        },
+        offer:{
+            couponId:{
+              type:mongoose.Schema.Types.ObjectId,
+              ref:"couponData"
+            },
+            discount:{
+              type:Number,
+              default:0
+            }
+          }
 })
 
 module.exports= cartModel= mongoose.model('cartData',cartSchema)

@@ -46,6 +46,7 @@ router.post('/changeAddress',checkOutcontroller.checkOutPage);
 router.post('/checkoutNewAddress',checkOutcontroller.checkoutNewAddress)
 router.post('/placeOrder',controller.userSession,checkOutcontroller.placeOrder);
 router.post('/verifyPayment',controller.userSession,checkOutcontroller.verifyPayment);
+router.post('/checkCoupen',controller.userSession,checkOutcontroller.checkCoupen);
 // router.post('/change-quantity' ,cartcontroller.changeCartQuantity)
 
 
