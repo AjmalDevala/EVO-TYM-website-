@@ -25,30 +25,28 @@
                       <div class="col-xl-3 col-lg-6 col-sm-6 grid-margin stretch-card">
                         <div class="card">
                           <div class="card-body text-center">
-                            <h5 class="mb-2 text-dark font-weight-normal">Orders</h5>
-                            <h2 class="mb-4 text-dark font-weight-bold">4.00</h2>
-                            <div class="dashboard-progress dashboard-progress-1 d-flex align-items-center justify-content-center item-parent"><i class="mdi mdi-lightbulb icon-md absolute-center text-dark"></i></div>
-                            <p class="mt-4 mb-0">Completed</p>
-                            <h3 class="mb-0 font-weight-bold mt-2 text-dark">543</h3>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="col-xl-3 col-lg-6 col-sm-6 grid-margin stretch-card">
-                        <div class="card">
-                          <div class="card-body text-center">
-                            <h5 class="mb-2 text-dark font-weight-normal">Unique Visitors</h5>
-                            <h2 class="mb-4 text-dark font-weight-bold">756,00</h2>
+                            <h4 class="mb-2 text-dark font-weight-normal">ACTIVE USERS</h4>
+                            <h2 class="mb-4 text-dark font-weight-bold"><%=activeUsers%> </h2>
                             <div class="dashboard-progress dashboard-progress-2 d-flex align-items-center justify-content-center item-parent"><i class="mdi mdi-account-circle icon-md absolute-center text-dark"></i></div>
                             <p class="mt-4 mb-0">Increased since yesterday</p>
                             <h3 class="mb-0 font-weight-bold mt-2 text-dark">50%</h3>
                           </div>
                         </div>
                       </div>
+                      <div class="col-xl-3 col-lg-6 col-sm-6 grid-margin stretch-card">
+                        <div class="card">
+                          <div class="card-body text-center">
+                            <h5 class="mb-2 text-dark font-weight-normal">ALL PRODUCTS</h5>
+                            <h2 class="mb-4 text-dark font-weight-bold"><%= allProducts %> </h2>
+                            <div class="dashboard-progress dashboard-progress-1 d-flex align-items-center justify-content-center item-parent"><i class="mdi mdi-lightbulb icon-md absolute-center text-dark"></i></div>
+                          </div>
+                        </div>
+                      </div>
                       <div class="col-xl-3  col-lg-6 col-sm-6 grid-margin stretch-card">
                         <div class="card">
                           <div class="card-body text-center">
-                            <h5 class="mb-2 text-dark font-weight-normal">Impressions</h5>
-                            <h2 class="mb-4 text-dark font-weight-bold">100,38</h2>
+                            <h5 class="mb-2 text-dark font-weight-normal">LIVE ORDERS</h5>
+                            <h2 class="mb-4 text-dark font-weight-bold"><%=liveOrders %> </h2>
                             <div class="dashboard-progress dashboard-progress-3 d-flex align-items-center justify-content-center item-parent"><i class="mdi mdi-eye icon-md absolute-center text-dark"></i></div>
                             <p class="mt-4 mb-0">Increased since yesterday</p>
                             <h3 class="mb-0 font-weight-bold mt-2 text-dark">35%</h3>
@@ -58,115 +56,104 @@
                       <div class="col-xl-3 col-lg-6 col-sm-6 grid-margin stretch-card">
                         <div class="card">
                           <div class="card-body text-center">
-                            <h5 class="mb-2 text-dark font-weight-normal">Followers</h5>
-                            <h2 class="mb-4 text-dark font-weight-bold">4250k</h2>
+                            <h5 class="mb-2 text-dark font-weight-normal">TOTAL SALES </h5>
+                            <h2 class="mb-4 text-dark font-weight-bold"><%=totalSales  %> </h2>
                             <div class="dashboard-progress dashboard-progress-4 d-flex align-items-center justify-content-center item-parent"><i class="mdi mdi-cube icon-md absolute-center text-dark"></i></div>
                             <p class="mt-4 mb-0">Decreased since yesterday</p>
                             <h3 class="mb-0 font-weight-bold mt-2 text-dark">25%</h3>
                           </div>
                         </div>
                       </div>
+                      <div class="col-xl-3 col-lg-6 col-sm-6 grid-margin stretch-card">
+                        <div class="card">
+                          <div class="card-body text-center">
+                            <h5 class="mb-2 text-dark font-weight-normal">OFFLINE SALES</h5>
+                            <h2 class="mb-4 text-dark font-weight-bold"><%=oflinePayments  %> </h2>
+                            <div class="dashboard-progress dashboard-progress-4 d-flex align-items-center justify-content-center item-parent"><i class="mdi mdi-cube icon-md absolute-center text-dark"></i></div>
+                            <p class="mt-4 mb-0">Decreased since yesterday</p>
+                            <h3 class="mb-0 font-weight-bold mt-2 text-dark">25%</h3>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-xl-3 col-lg-6 col-sm-6 grid-margin stretch-card">
+                        <div class="card">
+                          <div class="card-body text-center">
+                            <h5 class="mb-2 text-dark font-weight-normal">ONLINE SALES</h5>
+                            <h2 class="mb-4 text-dark font-weight-bold"><%=onlinePayments %> </h2>
+                            <div class="dashboard-progress dashboard-progress-4 d-flex align-items-center justify-content-center item-parent"><i class="mdi mdi-cube icon-md absolute-center text-dark"></i></div>
+                            <p class="mt-4 mb-0">Decreased since yesterday</p>
+                            <h3 class="mb-0 font-weight-bold mt-2 text-dark">25%</h3>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-xl-3 col-lg-6 col-sm-6 grid-margin stretch-card     d-flex align-items-end">
+                       
+
+
+
+                        <div class="table ">
+                          <table><h1>NEW USERS</h1></table>
+                          <table class="table table-bordered">
+                            <thead>
+                              <tr>
+                                <th scope="col">INDEX</th>
+                                <th scope="col">NAME</th>
+                                <th scope="col">PHONE</th>
+                                <th scope="col">PLACE</th>
+                                <th scope="col">PAYMENT</th>
+                         
+                              </tr>
+                            </thead>
+                            <tbody>
+                             <% newOrders.forEach(function(x){  %> 
+                              <tr>
+                                <th scope="row"><%= index++ %> </th>
+                                <td><%= x.address.fullName  %> </td>
+                                <td><%= x.address.phone  %> </td>
+                                <td><%= x.address.state  %> </td>
+                                <td><%= x.address.city  %> </td>
+                              </tr>
+                              <% }) %> 
+                          
+                          
+                            </tbody>
+                          </table>
+                        </div>
+                      </div>
+
+
                     </div>
                     
-
-
-                      <div class="table-responsive">
-                        <table><h1>orders</h1></table>
-                        <table class="table">
-                          <thead>
-                            <tr>
-                              <th scope="col">#</th>
-                              <th scope="col">Heading</th>
-                              <th scope="col">Heading</th>
-                              <th scope="col">Heading</th>
-                              <th scope="col">Heading</th>
-                              <th scope="col">Heading</th>
-                              <th scope="col">Heading</th>
-                              <th scope="col">Heading</th>
-                              <th scope="col">Heading</th>
-                              <th scope="col">Heading</th>
-                            </tr>
-                          </thead>
-                          <tbody>
-                            <tr>
-                              <th scope="row">1</th>
-                              <td>Cell</td>
-                              <td>Cell</td>
-                              <td>Cell</td>
-                              <td>Cell</td>
-                              <td>Cell</td>
-                              <td>Cell</td>
-                              <td>Cell</td>
-                              <td>Cell</td>
-                              <td>Cell</td>
-                            </tr>
-                            <tr>
-                              <th scope="row">2</th>
-                              <td>Cell</td>
-                              <td>Cell</td>
-                              <td>Cell</td>
-                              <td>Cell</td>
-                              <td>Cell</td>
-                              <td>Cell</td>
-                              <td>Cell</td>
-                              <td>Cell</td>
-                              <td>Cell</td>
-                            </tr>
-                            <tr>
-                              <th scope="row">3</th>
-                              <td>Cell</td>
-                              <td>Cell</td>
-                              <td>Cell</td>
-                              <td>Cell</td>
-                              <td>Cell</td>
-                              <td>Cell</td>
-                              <td>Cell</td>
-                              <td>Cell</td>
-                              <td>Cell</td>
-                            </tr>
-                          </tbody>
-                        </table>
-                      </div>
-
-
-                      <div class="col-sm-4   d-flex justify-content-between"">
+                    <div class="table ">
+                      <table><h1>NEW ORDERS</h1></table>
+                      <table class="table ">
+                        <thead>
+                          <tr>
+                            <th scope="col">INDEX</th>
+                            <th scope="col">NAME</th>
+                            <th scope="col">PRODUCT</th>
+                            <th scope="col">DATE</th>
+                            <th scope="col">PAYMENT</th>
+                     
+                          </tr>
+                        </thead>
+                        <tbody>
+                         <% newOrders.forEach(function(x){  %> 
+                          <% x.products.forEach(function(y){ %>
+                          <tr>
+                            <th scope="row"><%= INDEX++ %> </th>
+                            <td><%= x.address.fullName  %> </td>
+                            <td><img src="/admin/evoimg/<%= y.productId.image %>" alt="" style="height: 60px; width:60px ;"></td>
+                            <td> <%= moment(x.date).format("LL") %> </td>
+                            <td><%= x.payment_method  %> </td>
+                          </tr>
+                          <% }) %> 
+                          <% }) %> 
                       
-
-                          <div class="card-body bg-white pt-4">
-                            <div class="row pt-4">
-                              <div class="col-sm-6">
-                                <div class="text-center border-right border-md-0">
-                                  <h4>Conversion</h4>
-                                  <h1 class="text-dark font-weight-bold mb-md-3">$306</h1>
-                                </div>
-                              </div>
-                              <div class="col-sm-6">
-                                <div class="text-center">
-                                  <h4>Cancellation</h4>
-                                  <h1 class="text-dark font-weight-bold">$1,520</h1>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                          
-                          <div class="card-body bg-white pt-4">
-                            <div class="row pt-4">
-                              <div class="col-sm-6">
-                                <div class="text-center border-right border-md-0">
-                                  <h4>Conversion</h4>
-                                  <h1 class="text-dark font-weight-bold mb-md-3">$306</h1>
-                                </div>
-                              </div>
-                              <div class="col-sm-6">
-                                <div class="text-center">
-                                  <h4>Cancellation</h4>
-                                  <h1 class="text-dark font-weight-bold">$1,520</h1>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                          
-                      </div>
+                      
+                        </tbody>
+                      </table>
+                    </div>
                     
                       
                     

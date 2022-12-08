@@ -4,6 +4,10 @@ const userModel = require('../models/userModel');
 const bcrypt = require('bcrypt');
 const categoryModel = require('../models/categoryModel');
 const productModel = require('../models/productModel');
+const orderModel = require("../models/orderModel");
+const moment = require("moment");
+
+
 
 
 module.exports = {
@@ -12,10 +16,10 @@ module.exports = {
     //For view admin Page
     homeView: async(req, res) => {
 
-        let allProducts = await productModel.find({status:"List"}).countDocuments()
-        let activeUsers = await userModel.find({ status: "Unblocked" }).countDocuments()
+        let allProducts = await productModel.find({}).countDocuments()
+        let activeUsers = await userModel.find({}).countDocuments()
         let liveOrders = await orderModel.find({ orderStatus: { $nin: ["Delivered", "Cancelled"] } }).countDocuments()
-        let newOrders = await orderModel.find().sort({ orderDate: -1 }).limit(8)
+        let newOrders = await orderModel.find().populate('products.productId').sort({date: -1 }).limit(5)
         let newUsers = await userModel.find({ type: "Active" }).sort({ join: -1 }).limit(5)
 
         let start = new Date();
@@ -25,8 +29,12 @@ module.exports = {
         let ordersToday = await orderModel.find({orderDate: {$gte: start, $lt: end}}).countDocuments()
 
         let online = await orderModel.aggregate([
-            { '$match': { paymentMethod: 'ONLINE'} },
-            { '$group': { '_id': null, 'subTotal': { '$sum': '$total' } } }
+            { '$match': { payment_method: 'Razorpay'}},
+            { '$group': { '_id': null, 'subTotal': { '$sum': '$cartTotal' } } }
+        ])
+        let COD = await orderModel.aggregate([
+            { '$match': { payment_method: 'COD'}},
+            { '$group': { '_id': null, 'COD': { '$sum': '$cartTotal' } } }
         ])
 
 
@@ -35,22 +43,23 @@ module.exports = {
                 '$group': {
                     '_id': null,
                     'totalCount': {
-                        '$sum': '$total'
+                        '$sum': '$cartTotal'
                     }
                 }
             }
         ])
 
-      console.log(online);
       const totalSales = sales.map(a => a.totalCount)
       const onlinePayments = online.map(a => a.subTotal)
+      const oflinePayments = COD.map(a => a.COD)
 
 
-        res.render("admin/home", {
+        res.render("admin/home", {allProducts,activeUsers,liveOrders,totalSales,newOrders,index:1,onlinePayments,oflinePayments,moment,INDEX:1,
         });
     },
+
     loginView: (req, res) => {
-        res.render("admin/login")
+        res.render("admin/login",{})
     },
     //.............................................................................................
     //for login

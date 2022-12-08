@@ -11,7 +11,7 @@ module.exports = {
     orderManagement :async (req , res) => {
       try{
         let user = await userModel.find()
-        const orders =  await orderModel.find().sort({date:-1}).populate('products.productId').populate('userId')
+        const orders =  await orderModel.find().sort({date:1}).populate('products.productId').populate('userId')
         res.render('admin/orderManagement' ,{orders,user,moment})
       }catch{
         res.render("error")
@@ -87,7 +87,7 @@ module.exports = {
         let userData = req.session.user;
         let userId = userData._id;
         let user = await userModel.findOne({ _id: userId });
-        let order = await orderModel.find({ userId }).populate('products.productId').sort ({date : -1})
+        let order = await orderModel.find({ userId }).populate('products.productId').sort ({date :  1})
         
     
         if (req.session.userlogin) {
